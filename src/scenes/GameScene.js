@@ -314,15 +314,19 @@ export class GameScene extends Phaser.Scene {
         const { width } = this.scale;
 
         // Balloon fill meter (top left)
+        this.meterX = 80;
+        this.meterY = 18;
+        this.meterMaxWidth = 100;
+
         this.add.text(10, 10, 'Balloon:', { fontSize: '14px', color: '#333' });
-        this.balloonMeterBg = this.add.rectangle(80, 18, 100, 16, 0x333333);
+        this.balloonMeterBg = this.add.rectangle(this.meterX, this.meterY, this.meterMaxWidth, 16, 0x333333);
         this.balloonMeterBg.setOrigin(0, 0.5);
-        this.balloonMeterFill = this.add.rectangle(80, 18, 0, 14, 0x7ED321);
+        this.balloonMeterFill = this.add.rectangle(this.meterX, this.meterY, 0, 14, 0x7ED321);
         this.balloonMeterFill.setOrigin(0, 0.5);
 
-        // Zone indicators on meter
-        this.add.rectangle(80 + 60, 18, 1, 16, 0xFFFF00, 0.8); // Yellow line
-        this.add.rectangle(80 + 85, 18, 1, 16, 0xFF0000, 0.8); // Red line
+        // Zone indicators on meter (stored so we can move them)
+        this.yellowZoneLine = this.add.rectangle(this.meterX + 60, this.meterY, 2, 16, 0xFFFF00, 0.9);
+        this.redZoneLine = this.add.rectangle(this.meterX + 85, this.meterY, 2, 16, 0xFF0000, 0.9);
 
         // Lung air meter (below balloon meter)
         this.add.text(10, 35, 'Lungs:', { fontSize: '14px', color: '#333' });
@@ -423,6 +427,7 @@ export class GameScene extends Phaser.Scene {
             // In red zone
             this.balloonCapacity *= (1 - this.debug.degradeRed);
             this.showDegradationFeedback(`RED! -${(this.debug.degradeRed * 100).toFixed(0)}%`);
+            this.updateMeterCapacity();
 
             // Check for pop (random chance in red)
             if (Math.random() < 0.3) {
@@ -432,6 +437,7 @@ export class GameScene extends Phaser.Scene {
             // In yellow zone
             this.balloonCapacity *= (1 - this.debug.degradeYellow);
             this.showDegradationFeedback(`Yellow -${(this.debug.degradeYellow * 100).toFixed(0)}%`);
+            this.updateMeterCapacity();
         }
         // Green zone - no degradation
     }
@@ -479,6 +485,7 @@ export class GameScene extends Phaser.Scene {
             this.balloon.setVisible(true);
             this.isWaitingForBalloon = false;
             this.updateBalloonVisual();
+            this.updateMeterCapacity(); // Reset meter to full size
         });
     }
 
@@ -638,10 +645,12 @@ export class GameScene extends Phaser.Scene {
     }
 
     updateBalloonMeter() {
-        const fillWidth = (this.balloonFill / 100) * 100; // Relative to original 100
+        // Fill width relative to current capacity (which fits in current meter width)
+        const meterWidth = (this.balloonCapacity / 100) * this.meterMaxWidth;
+        const fillWidth = (this.balloonFill / this.balloonCapacity) * meterWidth;
         this.balloonMeterFill.setSize(fillWidth, 14);
 
-        // Color the meter
+        // Color the meter based on zone
         const fillPercent = (this.balloonFill / this.balloonCapacity) * 100;
         if (fillPercent > this.redZone[0]) {
             this.balloonMeterFill.setFillStyle(0xD0021B);
@@ -650,6 +659,21 @@ export class GameScene extends Phaser.Scene {
         } else {
             this.balloonMeterFill.setFillStyle(0x7ED321);
         }
+    }
+
+    updateMeterCapacity() {
+        // Shrink meter background based on current balloon capacity
+        const capacityRatio = this.balloonCapacity / 100;
+        const newWidth = capacityRatio * this.meterMaxWidth;
+
+        this.balloonMeterBg.setSize(newWidth, 16);
+
+        // Move zone lines leftward proportionally
+        const yellowPos = this.meterX + (this.yellowZone[0] / 100) * newWidth;
+        const redPos = this.meterX + (this.redZone[0] / 100) * newWidth;
+
+        this.yellowZoneLine.setX(yellowPos);
+        this.redZoneLine.setX(redPos);
     }
 
     updateLungMeter() {
