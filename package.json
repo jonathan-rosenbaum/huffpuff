@@ -1,0 +1,16 @@
+{
+  "name": "balloon-blowout",
+  "version": "0.1.0",
+  "description": "Casual mobile arcade game - blow out candles using helium balloons",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "npx http-server -p 8080 -c-1",
+    "dev": "npx http-server -p 8080 -c-1 -o"
+  },
+  "dependencies": {
+    "phaser": "^3.80.1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
