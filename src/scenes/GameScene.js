@@ -13,25 +13,139 @@ export class GameScene extends Phaser.Scene {
         this.yellowZone = [61, 85];
         this.redZone = [86, 100];
 
-        // Degradation rates
-        this.yellowDegradation = 0.10;  // 10%
-        this.redDegradation = 0.15;     // 15%
-
         // Input state
         this.isInflating = false;
         this.isInhaling = false;
         this.flickStart = null;
 
+        // Balloon replacement state
+        this.isWaitingForBalloon = false;
+
         // Candles
         this.candles = [];
+
+        // Debug config (tunable via panel)
+        this.debug = {
+            spreadAngleMin: 5,        // Narrowest (laser) in degrees
+            spreadAngleMax: 70,       // Widest in degrees
+            reachAtMaxSpread: 50,     // Reach when fully wide (pixels)
+            reachAtMinSpread: 350,    // Reach when laser (pixels)
+            strengthMultiplier: 1.0,  // Lung volume → cone area multiplier
+            degradeYellow: 0.10,      // 10% capacity loss
+            degradeRed: 0.15,         // 15% capacity loss
+            fillSpeed: 0.5,           // Balloon fill per frame
+            inhaleSpeed: 1.0,         // Lung fill per frame
+            balloonReplaceTime: 2500, // ms delay for Scully to fetch new balloon
+        };
     }
 
     create() {
         this.createPlaceholders();
         this.createUI();
+        this.createDebugPanel();
         this.setupInput();
         this.createCandles(); // All 101 slots lit (pass pattern array to customize)
         this.updateCandleCount();
+    }
+
+    createDebugPanel() {
+        // Remove existing panel if present (for scene restart)
+        const existingPanel = document.getElementById('debug-panel');
+        if (existingPanel) existingPanel.remove();
+
+        // Create HTML-based debug panel
+        const panel = document.createElement('div');
+        panel.id = 'debug-panel';
+        panel.innerHTML = `
+            <div class="debug-header" id="debug-toggle">DEBUG</div>
+            <div class="debug-content" id="debug-content">
+                <div class="debug-row">
+                    <label>Spread Min (laser)°</label>
+                    <input type="range" min="1" max="30" value="${this.debug.spreadAngleMin}" id="dbg-spreadMin">
+                    <span id="dbg-spreadMin-val">${this.debug.spreadAngleMin}</span>
+                </div>
+                <div class="debug-row">
+                    <label>Spread Max (wide)°</label>
+                    <input type="range" min="30" max="90" value="${this.debug.spreadAngleMax}" id="dbg-spreadMax">
+                    <span id="dbg-spreadMax-val">${this.debug.spreadAngleMax}</span>
+                </div>
+                <div class="debug-row">
+                    <label>Reach @ Wide</label>
+                    <input type="range" min="20" max="150" value="${this.debug.reachAtMaxSpread}" id="dbg-reachWide">
+                    <span id="dbg-reachWide-val">${this.debug.reachAtMaxSpread}</span>
+                </div>
+                <div class="debug-row">
+                    <label>Reach @ Laser</label>
+                    <input type="range" min="100" max="500" value="${this.debug.reachAtMinSpread}" id="dbg-reachLaser">
+                    <span id="dbg-reachLaser-val">${this.debug.reachAtMinSpread}</span>
+                </div>
+                <div class="debug-row">
+                    <label>Strength Mult</label>
+                    <input type="range" min="0.1" max="3" step="0.1" value="${this.debug.strengthMultiplier}" id="dbg-strength">
+                    <span id="dbg-strength-val">${this.debug.strengthMultiplier}</span>
+                </div>
+                <div class="debug-row">
+                    <label>Degrade Yellow %</label>
+                    <input type="range" min="0" max="30" value="${this.debug.degradeYellow * 100}" id="dbg-degradeY">
+                    <span id="dbg-degradeY-val">${(this.debug.degradeYellow * 100).toFixed(0)}</span>
+                </div>
+                <div class="debug-row">
+                    <label>Degrade Red %</label>
+                    <input type="range" min="0" max="50" value="${this.debug.degradeRed * 100}" id="dbg-degradeR">
+                    <span id="dbg-degradeR-val">${(this.debug.degradeRed * 100).toFixed(0)}</span>
+                </div>
+                <div class="debug-row">
+                    <label>Fill Speed</label>
+                    <input type="range" min="0.1" max="3" step="0.1" value="${this.debug.fillSpeed}" id="dbg-fillSpeed">
+                    <span id="dbg-fillSpeed-val">${this.debug.fillSpeed}</span>
+                </div>
+                <div class="debug-row">
+                    <label>Inhale Speed</label>
+                    <input type="range" min="0.1" max="3" step="0.1" value="${this.debug.inhaleSpeed}" id="dbg-inhaleSpeed">
+                    <span id="dbg-inhaleSpeed-val">${this.debug.inhaleSpeed}</span>
+                </div>
+                <div class="debug-row">
+                    <label>Balloon Replace (ms)</label>
+                    <input type="range" min="0" max="5000" step="100" value="${this.debug.balloonReplaceTime}" id="dbg-replaceTime">
+                    <span id="dbg-replaceTime-val">${this.debug.balloonReplaceTime}</span>
+                </div>
+                <button id="dbg-reset">Reset Game</button>
+            </div>
+        `;
+        document.body.appendChild(panel);
+
+        // Toggle collapse/expand
+        document.getElementById('debug-toggle').addEventListener('click', () => {
+            const content = document.getElementById('debug-content');
+            content.classList.toggle('collapsed');
+        });
+
+        // Wire up all sliders
+        this.wireDebugSlider('dbg-spreadMin', 'spreadAngleMin', 1);
+        this.wireDebugSlider('dbg-spreadMax', 'spreadAngleMax', 1);
+        this.wireDebugSlider('dbg-reachWide', 'reachAtMaxSpread', 1);
+        this.wireDebugSlider('dbg-reachLaser', 'reachAtMinSpread', 1);
+        this.wireDebugSlider('dbg-strength', 'strengthMultiplier', 1);
+        this.wireDebugSlider('dbg-degradeY', 'degradeYellow', 0.01);
+        this.wireDebugSlider('dbg-degradeR', 'degradeRed', 0.01);
+        this.wireDebugSlider('dbg-fillSpeed', 'fillSpeed', 1);
+        this.wireDebugSlider('dbg-inhaleSpeed', 'inhaleSpeed', 1);
+        this.wireDebugSlider('dbg-replaceTime', 'balloonReplaceTime', 1);
+
+        // Reset button
+        document.getElementById('dbg-reset').addEventListener('click', () => {
+            this.scene.restart();
+        });
+    }
+
+    wireDebugSlider(sliderId, debugKey, multiplier) {
+        const slider = document.getElementById(sliderId);
+        const valSpan = document.getElementById(sliderId + '-val');
+        slider.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value) * multiplier;
+            this.debug[debugKey] = val;
+            valSpan.textContent = multiplier === 0.01 ? (val * 100).toFixed(0) : val;
+        });
     }
 
     updateCandleCount() {
@@ -307,8 +421,8 @@ export class GameScene extends Phaser.Scene {
 
         if (fillPercent > this.redZone[0]) {
             // In red zone
-            this.balloonCapacity *= (1 - this.redDegradation);
-            this.showDegradationFeedback('RED! -15% capacity');
+            this.balloonCapacity *= (1 - this.debug.degradeRed);
+            this.showDegradationFeedback(`RED! -${(this.debug.degradeRed * 100).toFixed(0)}%`);
 
             // Check for pop (random chance in red)
             if (Math.random() < 0.3) {
@@ -316,8 +430,8 @@ export class GameScene extends Phaser.Scene {
             }
         } else if (fillPercent > this.yellowZone[0]) {
             // In yellow zone
-            this.balloonCapacity *= (1 - this.yellowDegradation);
-            this.showDegradationFeedback('Yellow -10% capacity');
+            this.balloonCapacity *= (1 - this.debug.degradeYellow);
+            this.showDegradationFeedback(`Yellow -${(this.debug.degradeYellow * 100).toFixed(0)}%`);
         }
         // Green zone - no degradation
     }
@@ -339,18 +453,33 @@ export class GameScene extends Phaser.Scene {
 
     popBalloon() {
         // Visual feedback
-        this.add.text(this.balloon.x, this.balloon.y, 'POP!', {
+        const popText = this.add.text(this.balloon.x, this.balloon.y, 'POP!', {
             fontSize: '24px',
             color: '#ff0000',
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
-        // Reset balloon
+        // Hide balloon during replacement
+        this.balloon.setVisible(false);
         this.balloonFill = 0;
-        this.balloonCapacity = 100; // New balloon
-        this.updateBalloonVisual();
+        this.isWaitingForBalloon = true;
 
-        // TODO: Scully fetch animation
+        // Fade out pop text
+        this.tweens.add({
+            targets: popText,
+            alpha: 0,
+            y: popText.y - 30,
+            duration: 500,
+            onComplete: () => popText.destroy()
+        });
+
+        // Wait for Scully to fetch new balloon
+        this.time.delayedCall(this.debug.balloonReplaceTime, () => {
+            this.balloonCapacity = 100; // Fresh balloon
+            this.balloon.setVisible(true);
+            this.isWaitingForBalloon = false;
+            this.updateBalloonVisual();
+        });
     }
 
     executeFlick(start, end, flickDistance) {
@@ -365,32 +494,44 @@ export class GameScene extends Phaser.Scene {
         const distFromMouth = Math.sqrt(dx * dx + dy * dy);
 
         // DISTANCE FROM MOUTH determines spread: close = wide, far = narrow/laser
-        // Close (<80px) = 70deg wide, Far (>250px) = 5deg laser
+        // Close (<80px) = max spread, Far (>250px) = min spread (laser)
         const flickRatio = Phaser.Math.Clamp((distFromMouth - 80) / 170, 0, 1);
-        const spreadAngle = Phaser.Math.Linear(70, 5, flickRatio);
+        const spreadAngle = Phaser.Math.Linear(
+            this.debug.spreadAngleMax,
+            this.debug.spreadAngleMin,
+            flickRatio
+        );
 
-        // Power: short flick = weak, long flick = strong
-        const power = this.lungAir * Phaser.Math.Linear(0.4, 1.2, flickRatio);
-
-        // Create gust visual
-        this.createGust(angle, spreadAngle, power);
+        // Create gust with geometric cone calculation
+        this.createGust(angle, spreadAngle, this.lungAir);
 
         // One flick = dump ALL lung air
         this.lungAir = 0;
         this.updateCheeks();
-        this.updateLungMeter(); // FIX: Actually update the lung meter!
+        this.updateLungMeter();
     }
 
-    createGust(angle, spreadAngle, power) {
-        const { width } = this.scale;
-
+    createGust(angle, spreadAngle, lungVolume) {
         // Gust origin (from mouth)
         const gustX = this.mouthX;
         const gustY = this.mouthY;
 
-        // Create cone visualization
+        // GEOMETRIC CONE CALCULATION
+        // Cone area is fixed by lung volume * strength multiplier
+        // Area of wedge = 0.5 * r^2 * theta
+        // So r = sqrt(2 * Area / theta)
+        const coneArea = lungVolume * this.debug.strengthMultiplier;
         const spreadRad = Phaser.Math.DegToRad(spreadAngle);
-        const gustLength = 280 + power; // Extended range to reach cake
+
+        // Calculate reach based on spread angle (inverse relationship)
+        // Wide spread = short reach, narrow spread = long reach
+        const spreadRatio = (spreadAngle - this.debug.spreadAngleMin) /
+            (this.debug.spreadAngleMax - this.debug.spreadAngleMin);
+        const gustLength = Phaser.Math.Linear(
+            this.debug.reachAtMinSpread,  // Laser reach (far)
+            this.debug.reachAtMaxSpread,  // Wide reach (short)
+            spreadRatio
+        );
 
         const graphics = this.add.graphics();
         graphics.fillStyle(0xADD8E6, 0.4);
@@ -401,7 +542,7 @@ export class GameScene extends Phaser.Scene {
         graphics.fillPath();
 
         // Check candle collisions
-        this.checkGustCollisions(gustX, gustY, angle, spreadRad, gustLength, power);
+        this.checkGustCollisions(gustX, gustY, angle, spreadRad, gustLength, coneArea);
 
         // Fade out gust visual (500ms so you can see what happened)
         this.tweens.add({
@@ -457,16 +598,16 @@ export class GameScene extends Phaser.Scene {
     }
 
     update(time, delta) {
-        // Handle continuous inflate
-        if (this.isInflating) {
-            this.balloonFill = Math.min(this.balloonCapacity, this.balloonFill + 0.5);
+        // Handle continuous inflate (blocked if waiting for balloon)
+        if (this.isInflating && !this.isWaitingForBalloon) {
+            this.balloonFill = Math.min(this.balloonCapacity, this.balloonFill + this.debug.fillSpeed);
             this.updateBalloonVisual();
             this.updateBalloonMeter();
         }
 
         // Handle continuous inhale
-        if (this.isInhaling && this.balloonFill > 0) {
-            const transfer = Math.min(1, this.balloonFill);
+        if (this.isInhaling && this.balloonFill > 0 && !this.isWaitingForBalloon) {
+            const transfer = Math.min(this.debug.inhaleSpeed, this.balloonFill);
             const spaceInLungs = this.maxLungAir - this.lungAir;
             const actualTransfer = Math.min(transfer, spaceInLungs);
 
