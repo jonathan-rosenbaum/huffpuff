@@ -1,3 +1,21 @@
+// Hero state constants
+const HeroState = {
+    IDLE: 'idle',
+    PIVOTING_TO_TANK: 'pivoting_to_tank',
+    AT_TANK: 'at_tank',
+    PIVOTING_FROM_TANK: 'pivoting_from_tank',
+    PIVOTING_TO_SUCK: 'pivoting_to_suck',
+    AT_SUCK: 'at_suck',
+    SUCKING: 'sucking',           // Actively inhaling (setup frames 4-8)
+    BLOW_SETUP: 'blow_setup',     // Transition to blow (setup frames 9-15)
+    BLOWING: 'blowing',           // Active blow (cycle frames 13-20)
+    SUCK_CYCLE: 'suck_cycle',     // Subsequent inhales (cycle frames 1-12)
+    RETURNING_TO_TANK: 'returning_to_tank',  // After blow, go back to tank (not idle)
+    RETURNING_TO_IDLE: 'returning_to_idle',  // Only after pop or waiting for Scully
+    SCARED: 'scared',
+    STARTLED_TO_CALM: 'startled_to_calm'
+};
+
 export class GameScene extends Phaser.Scene {
     constructor() {
         super({ key: 'GameScene' });
@@ -21,6 +39,9 @@ export class GameScene extends Phaser.Scene {
         // Balloon replacement state
         this.isWaitingForBalloon = false;
 
+        // Red zone pop tracking
+        this.redZoneEntryTime = null;  // When balloon entered red zone
+
         // Candles
         this.candles = [];
 
@@ -36,7 +57,60 @@ export class GameScene extends Phaser.Scene {
             fillSpeed: 0.5,           // Balloon fill per frame
             inhaleSpeed: 1.0,         // Lung fill per frame
             balloonReplaceTime: 2500, // ms delay for Scully to fetch new balloon
+            redPopRate: 0.002,        // Base pop probability per frame in red (geometric increase)
         };
+    }
+
+    preload() {
+        // Helper to load individual frames
+        const loadFrames = (prefix, path, count) => {
+            for (let i = 1; i <= count; i++) {
+                const num = String(i).padStart(2, '0');
+                this.load.image(`${prefix}_${num}`, `${path}_${num}.png`);
+            }
+        };
+
+        // Hero animations (individual frames)
+        loadFrames('eric_pivot_to_tank', 'assets/sprites/hero/eric_pivot_to_tank', 20);
+        loadFrames('eric_pivot_to_suck', 'assets/sprites/hero/eric_pivot_to_suck', 51);
+        loadFrames('eric_scared', 'assets/sprites/hero/eric_scared', 38);
+        loadFrames('eric_startled_to_calm', 'assets/sprites/hero/eric_startled_to_calm', 43);
+        loadFrames('eric_suck_blow', 'assets/sprites/hero/eric_suck_blow', 18);
+
+        // Single images
+        this.load.image('tank', 'assets/sprites/tank/tank.png');
+        this.load.image('cake', 'assets/sprites/cake/cake.png');
+
+        // Candles
+        this.load.image('candle1', 'assets/sprites/candles/candle1.png');
+        this.load.image('candle2', 'assets/sprites/candles/candle2.png');
+        this.load.image('candle3', 'assets/sprites/candles/candle3.png');
+        this.load.image('candle4', 'assets/sprites/candles/candle4.png');
+        this.load.image('candle5', 'assets/sprites/candles/candle5.png');
+        this.load.image('candle_flicker1', 'assets/sprites/candles/candle_flicker1.png');
+        this.load.image('candle_flicker2', 'assets/sprites/candles/candle_flicker2.png');
+        this.load.image('candle_out', 'assets/sprites/candles/candle_out.png');
+
+        // Balloon animations (individual frames)
+        loadFrames('balloon_phases', 'assets/sprites/balloon/balloon_phases', 40);
+        loadFrames('balloon_pop', 'assets/sprites/balloon/balloon_pop', 4);
+
+        // Scully animations (individual frames)
+        loadFrames('scully_run_right', 'assets/sprites/scully/scully_run_right', 10);
+        loadFrames('scully_pivot_to_front', 'assets/sprites/scully/scully_pivot_to_front', 8);
+        loadFrames('scully_pivot_to_left', 'assets/sprites/scully/scully_pivot_to_left', 7);
+        loadFrames('scully_run_left', 'assets/sprites/scully/scully_run_left', 9);
+
+        // UI animations (individual frames)
+        loadFrames('sign_lights', 'assets/sprites/ui/sign_lights', 52);
+
+        // Background
+        this.load.image('background', 'assets/sprites/backgrounds/thunderdome.png');
+
+        // Sounds
+        this.load.audio('music', 'assets/sounds/sexy_boy.mp3');
+        this.load.audio('airflow', 'assets/sounds/airflow.mp3');
+        this.load.audio('balloon_pop', 'assets/sounds/balloon_pop.mp3');
     }
 
     create() {
@@ -44,8 +118,27 @@ export class GameScene extends Phaser.Scene {
         this.createUI();
         this.createDebugPanel();
         this.setupInput();
-        this.createCandles(); // All 101 slots lit (pass pattern array to customize)
+        this.createCandles();
         this.updateCandleCount();
+        this.setupSounds();
+    }
+
+    setupSounds() {
+        // Background music - looping
+        this.music = this.sound.add('music', { loop: true, volume: 0.5 });
+
+        // Airflow sound - plays while inflating
+        this.airflowSound = this.sound.add('airflow', { loop: true, volume: 0.7 });
+
+        // Balloon pop sound
+        this.popSound = this.sound.add('balloon_pop', { volume: 1.0 });
+
+        // Start music on first user interaction (browser autoplay policy)
+        this.input.once('pointerdown', () => {
+            if (!this.music.isPlaying) {
+                this.music.play();
+            }
+        });
     }
 
     createDebugPanel() {
@@ -109,7 +202,13 @@ export class GameScene extends Phaser.Scene {
                     <input type="range" min="0" max="5000" step="100" value="${this.debug.balloonReplaceTime}" id="dbg-replaceTime">
                     <span id="dbg-replaceTime-val">${this.debug.balloonReplaceTime}</span>
                 </div>
+                <div class="debug-row">
+                    <label>Red Pop Rate</label>
+                    <input type="range" min="0.0005" max="0.01" step="0.0005" value="${this.debug.redPopRate}" id="dbg-popRate">
+                    <span id="dbg-popRate-val">${this.debug.redPopRate}</span>
+                </div>
                 <button id="dbg-reset">Reset Game</button>
+                <button id="dbg-anim-test" style="background:#06c;margin-top:5px;">Test Animations</button>
             </div>
         `;
         document.body.appendChild(panel);
@@ -131,10 +230,16 @@ export class GameScene extends Phaser.Scene {
         this.wireDebugSlider('dbg-fillSpeed', 'fillSpeed', 1);
         this.wireDebugSlider('dbg-inhaleSpeed', 'inhaleSpeed', 1);
         this.wireDebugSlider('dbg-replaceTime', 'balloonReplaceTime', 1);
+        this.wireDebugSlider('dbg-popRate', 'redPopRate', 1);
 
         // Reset button
         document.getElementById('dbg-reset').addEventListener('click', () => {
             this.scene.restart();
+        });
+
+        // Animation test button
+        document.getElementById('dbg-anim-test').addEventListener('click', () => {
+            this.scene.start('AnimTestScene');
         });
     }
 
@@ -156,67 +261,421 @@ export class GameScene extends Phaser.Scene {
     createPlaceholders() {
         const { width, height } = this.scale;
 
-        // Tank (left side, bottom) - Royal blue rectangle
-        this.tank = this.add.rectangle(60, height - 200, 60, 150, 0x0066CC);
-        this.tank.setStrokeStyle(3, 0x004499);
-        this.tankNozzle = this.add.rectangle(60, height - 290, 20, 30, 0x888888);
+        // Background - centered, allowing overflow on sides
+        this.background = this.add.image(width / 2, height / 2, 'background');
+        // Scale to fit height, allowing width overflow
+        const bgScale = height / this.background.height;
+        this.background.setScale(bgScale);
 
-        // Tank label
-        this.add.text(60, height - 200, 'TANK', {
-            fontSize: '12px',
-            color: '#ffffff'
-        }).setOrigin(0.5);
+        // Portrait layout: tank on left, hero center-left, cake on right
+        // Ground level - move everything up from bottom
+        const groundY = height - 150;
 
-        // Character (center-left) - Simple body shape
-        this.characterX = 130;
-        this.characterY = height - 180;
+        // Tank (left side) - actual sprite
+        // Tank sprite is 412x1024, scale down to fit portrait (10% larger)
+        const tankScale = 0.25;
+        const tankX = 95;  // Moved rightward
+        this.tank = this.add.sprite(tankX, groundY, 'tank');
+        this.tank.setScale(tankScale);
+        this.tank.setOrigin(0.5, 1); // Bottom center origin
 
-        // Body (black sweater)
-        this.characterBody = this.add.rectangle(
-            this.characterX, this.characterY,
-            50, 80, 0x222222
-        );
-        // Head
-        this.characterHead = this.add.circle(
-            this.characterX, this.characterY - 60,
-            25, 0xFFDBAC
-        );
-        // Cap (grey)
-        this.characterCap = this.add.ellipse(
-            this.characterX, this.characterY - 75,
-            40, 15, 0x666666
-        );
+        // Create invisible hitbox for tank interaction (covers tank + nozzle area)
+        // Use a zone instead of rectangle to avoid rendering issues
+        this.tankHitArea = this.add.zone(tankX, groundY - 100, 110, 260);
+        this.tankHitArea.setOrigin(0.5, 0.5);
 
-        // Mouth position (for blow trajectory origin)
-        this.mouthX = this.characterX + 25;
-        this.mouthY = this.characterY - 50;
+        // Hero (center) - actual sprite
+        // Hero sprite is 544x720 per frame, scale to fit portrait screen
+        const heroScale = 0.44;
+        this.characterX = width * 0.42;
+        this.characterY = groundY;
+
+        this.hero = this.add.sprite(this.characterX, this.characterY, 'eric_pivot_to_tank_01');
+        this.hero.setScale(heroScale);
+        this.hero.setOrigin(0.5, 1); // Bottom center origin
+
+        // Create all hero animations
+        this.createHeroAnimations();
+
+        // Mouth position (for blow trajectory origin) - adjusted for portrait sprite
+        this.mouthX = this.characterX + 50;
+        this.mouthY = this.characterY - 200;
 
         // Chest/inhale zone (where you drag balloon to suck in)
-        this.chestX = this.characterX;
-        this.chestY = this.characterY - 20;
-        this.chestZone = this.add.circle(this.chestX, this.chestY, 30, 0x00ff00, 0.0); // Invisible
+        this.chestX = this.characterX + 20;
+        this.chestY = this.characterY - 140;
+        this.chestZone = this.add.circle(this.chestX, this.chestY, 40, 0x00ff00, 0.0); // Invisible
 
-        // Balloon (centered over hero at chest level) - Lime green
-        this.balloonRestX = this.characterX;
-        this.balloonRestY = this.characterY - 120; // Above head when full
-        this.balloon = this.add.ellipse(
-            this.balloonRestX, this.balloonRestY,
-            10, 15, 0x7ED321
-        );
+        // Balloon - using ellipse placeholder until sprite frames are fixed
+        this.balloonRestX = this.characterX + 35;
+        this.balloonRestY = this.characterY - 180;
+        this.balloon = this.add.ellipse(this.balloonRestX, this.balloonRestY, 20, 30, 0x7ED321);
         this.balloon.setStrokeStyle(2, 0x5BA318);
 
-        // Cheeks indicator (puffs when air in lungs)
-        this.leftCheek = this.add.ellipse(
-            this.characterX - 15, this.characterY - 55,
-            8, 8, 0xFFB6B6, 0
-        );
-        this.rightCheek = this.add.ellipse(
-            this.characterX + 15, this.characterY - 55,
-            8, 8, 0xFFB6B6, 0
-        );
+        // Store frame ranges for zones (48 total frames)
+        // Green: 0-28, Yellow: 29-38, Orange: 39-44, Red: 45-47
+        this.balloonFrames = {
+            total: 48,
+            greenEnd: 28,      // Frames 0-28: green, increasing size
+            yellowEnd: 38,     // Frames 29-38: yellow zone
+            orangeEnd: 44,     // Frames 39-44: orange zone
+            redEnd: 47         // Frames 45-47: red zone (danger!)
+        };
 
-        // Cake (right side) - Multi-tier placeholder
-        this.createCakePlaceholder();
+        // Cheeks indicator - hidden for now since hero has actual face
+        this.leftCheek = this.add.ellipse(0, 0, 8, 8, 0xFFB6B6, 0);
+        this.rightCheek = this.add.ellipse(0, 0, 8, 8, 0xFFB6B6, 0);
+
+        // Cake (right side) - actual sprite
+        this.createCakeWithSprite();
+    }
+
+    recreateBalloon() {
+        // Reset red zone tracking
+        this.redZoneEntryTime = null;
+
+        // Create fresh balloon ellipse
+        if (this.balloon) {
+            this.balloon.destroy();
+        }
+        this.balloon = this.add.ellipse(this.balloonRestX, this.balloonRestY, 20, 30, 0x7ED321);
+        this.balloon.setStrokeStyle(2, 0x5BA318);
+        this.updateBalloonVisual();
+    }
+
+    createHeroAnimations() {
+        // Helper to generate frame array from individual images
+        const makeFrames = (prefix, start, end) => {
+            const frames = [];
+            for (let i = start; i <= end; i++) {
+                const num = String(i).padStart(2, '0');
+                frames.push({ key: `${prefix}_${num}` });
+            }
+            return frames;
+        };
+
+        // Helper to generate reversed frame array
+        const makeFramesReverse = (prefix, start, end) => {
+            const frames = [];
+            for (let i = end; i >= start; i--) {
+                const num = String(i).padStart(2, '0');
+                frames.push({ key: `${prefix}_${num}` });
+            }
+            return frames;
+        };
+
+        // === IDLE & TANK ANIMATIONS ===
+
+        // Idle - first frame of pivot_to_tank
+        this.anims.create({
+            key: 'anim_idle',
+            frames: [{ key: 'eric_pivot_to_tank_01' }],
+            frameRate: 1,
+            repeat: 0
+        });
+
+        // Pivot to tank (20 frames)
+        this.anims.create({
+            key: 'anim_pivot_to_tank',
+            frames: makeFrames('eric_pivot_to_tank', 1, 20),
+            frameRate: 24,
+            repeat: 0
+        });
+
+        // At tank - hold last frame while inflating
+        this.anims.create({
+            key: 'anim_at_tank',
+            frames: [{ key: 'eric_pivot_to_tank_20' }],
+            frameRate: 1,
+            repeat: 0
+        });
+
+        // Pivot from tank back to idle (reverse)
+        this.anims.create({
+            key: 'anim_pivot_from_tank',
+            frames: makeFramesReverse('eric_pivot_to_tank', 1, 20),
+            frameRate: 24,
+            repeat: 0
+        });
+
+        // === PIVOT TO SUCK POSITION ===
+
+        // Pivot to suck position (51 frames)
+        this.anims.create({
+            key: 'anim_pivot_to_suck',
+            frames: makeFrames('eric_pivot_to_suck', 1, 51),
+            frameRate: 30,
+            repeat: 0
+        });
+
+        // At suck position - hold last frame
+        this.anims.create({
+            key: 'anim_at_suck',
+            frames: [{ key: 'eric_pivot_to_suck_51' }],
+            frameRate: 1,
+            repeat: 0
+        });
+
+        // === SUCK/BLOW ANIMATIONS ===
+        // eric_suck_blow has 18 frames total
+        // Frames 1-5: suck setup, 6-9: suck hold area, 10-18: blow
+
+        // Suck setup - frames 1-5
+        this.anims.create({
+            key: 'anim_suck_setup',
+            frames: makeFrames('eric_suck_blow', 1, 5),
+            frameRate: 24,
+            repeat: 0
+        });
+
+        // Hold at suck position (frame 5)
+        this.anims.create({
+            key: 'anim_suck_hold',
+            frames: [{ key: 'eric_suck_blow_05' }],
+            frameRate: 1,
+            repeat: 0
+        });
+
+        // Blow setup - frames 6-9 (transition from suck to blow)
+        this.anims.create({
+            key: 'anim_blow_setup',
+            frames: makeFrames('eric_suck_blow', 6, 9),
+            frameRate: 24,
+            repeat: 0
+        });
+
+        // Suck cycle - frames 1-9 (for subsequent inhales)
+        this.anims.create({
+            key: 'anim_suck_cycle',
+            frames: makeFrames('eric_suck_blow', 1, 9),
+            frameRate: 24,
+            repeat: 0
+        });
+
+        // Hold at suck cycle position (frame 9)
+        this.anims.create({
+            key: 'anim_suck_cycle_hold',
+            frames: [{ key: 'eric_suck_blow_09' }],
+            frameRate: 1,
+            repeat: 0
+        });
+
+        // Blow - frames 10-18 (the actual blow animation)
+        this.anims.create({
+            key: 'anim_blow',
+            frames: makeFrames('eric_suck_blow', 10, 18),
+            frameRate: 24,
+            repeat: 0
+        });
+
+        // === RETURN TO TANK (after blow - hand back on nozzle) ===
+        // Use pivot_to_suck in reverse (suck position → tank position)
+        this.anims.create({
+            key: 'anim_return_to_tank',
+            frames: makeFramesReverse('eric_pivot_to_suck', 1, 51),
+            frameRate: 30,
+            repeat: 0
+        });
+
+        // === RETURN TO IDLE (only after pop or waiting for Scully) ===
+        // Use pivot_to_tank in reverse (tank → idle)
+        this.anims.create({
+            key: 'anim_return_to_idle',
+            frames: makeFramesReverse('eric_pivot_to_tank', 1, 20),
+            frameRate: 24,
+            repeat: 0
+        });
+
+        // === SCARED/STARTLED ===
+
+        // Scared (38 frames) - when balloon pops
+        this.anims.create({
+            key: 'anim_scared',
+            frames: makeFrames('eric_scared', 1, 38),
+            frameRate: 24,
+            repeat: 0
+        });
+
+        // Startled to calm (43 frames) - recovery after scare
+        this.anims.create({
+            key: 'anim_startled_to_calm',
+            frames: makeFrames('eric_startled_to_calm', 1, 43),
+            frameRate: 24,
+            repeat: 0
+        });
+
+        // Track hero state for animation logic
+        this.heroState = HeroState.IDLE;
+
+        // Track if first suck/blow cycle (uses setup) vs subsequent (uses cycle)
+        this.isFirstSuckBlowCycle = true;
+
+        // Track if we've entered the suck/blow phase (for proper texture selection)
+        this.inSuckBlowPhase = false;
+    }
+
+    /**
+     * Central state transition handler - ensures proper texture/animation sequencing
+     */
+    transitionTo(newState) {
+        const prevState = this.heroState;
+        this.heroState = newState;
+
+        // Clear any pending animation callbacks
+        this.hero.off('animationcomplete');
+
+        switch (newState) {
+            case HeroState.IDLE:
+                this.hero.setTexture('eric_pivot_to_tank_01');
+                this.hero.play('anim_idle');
+                this.isFirstSuckBlowCycle = true; // Reset for next cycle
+                this.inSuckBlowPhase = false; // Reset phase tracking
+                break;
+
+            case HeroState.PIVOTING_TO_TANK:
+                this.hero.setTexture('eric_pivot_to_tank_01');
+                this.hero.play('anim_pivot_to_tank');
+                this.hero.once('animationcomplete', () => {
+                    this.transitionTo(HeroState.AT_TANK);
+                });
+                break;
+
+            case HeroState.AT_TANK:
+                this.hero.setTexture('eric_pivot_to_tank_20');
+                // No animation - just hold last frame
+                // Start airflow sound when at tank and inflating
+                if (this.isInflating && this.airflowSound && !this.airflowSound.isPlaying) {
+                    this.airflowSound.play();
+                }
+                break;
+
+            case HeroState.PIVOTING_FROM_TANK:
+                this.hero.setTexture('eric_pivot_to_tank_20');
+                this.hero.play('anim_pivot_from_tank');
+                this.hero.once('animationcomplete', () => {
+                    this.transitionTo(HeroState.IDLE);
+                });
+                break;
+
+            case HeroState.PIVOTING_TO_SUCK:
+                this.hero.setTexture('eric_pivot_to_suck_01');
+                this.hero.play('anim_pivot_to_suck');
+                this.hero.once('animationcomplete', () => {
+                    this.transitionTo(HeroState.AT_SUCK);
+                });
+                break;
+
+            case HeroState.AT_SUCK:
+                // Always show rest position - hand to mouth, cheeks NOT puffed
+                // Puffed cheeks only appear during SUCKING animation
+                this.hero.setTexture('eric_pivot_to_suck_51');
+                this.hero.play('anim_at_suck');
+                break;
+
+            case HeroState.SUCKING:
+                this.inSuckBlowPhase = true; // Mark that we've entered suck/blow phase
+                if (this.isFirstSuckBlowCycle) {
+                    // First time: use suck_blow frames 1-5
+                    this.hero.setTexture('eric_suck_blow_01');
+                    this.hero.play('anim_suck_setup');
+                    this.hero.once('animationcomplete', () => {
+                        // Hold at frame 5 while air transfers
+                        this.hero.setTexture('eric_suck_blow_05');
+                    });
+                } else {
+                    // Subsequent: use suck_blow frames 1-9
+                    this.hero.setTexture('eric_suck_blow_01');
+                    this.hero.play('anim_suck_cycle');
+                    this.hero.once('animationcomplete', () => {
+                        // Hold at frame 9 while air transfers
+                        this.hero.setTexture('eric_suck_blow_09');
+                    });
+                }
+                break;
+
+            case HeroState.BLOW_SETUP:
+                if (this.isFirstSuckBlowCycle) {
+                    // First time: use suck_blow frames 6-9
+                    this.hero.setTexture('eric_suck_blow_06');
+                    this.hero.play('anim_blow_setup');
+                    this.isFirstSuckBlowCycle = false; // Next time use cycle
+                } else {
+                    // Already in cycle, go straight to blow
+                    this.transitionTo(HeroState.BLOWING);
+                    return;
+                }
+                this.hero.once('animationcomplete', () => {
+                    this.transitionTo(HeroState.BLOWING);
+                });
+                break;
+
+            case HeroState.BLOWING:
+                this.hero.setTexture('eric_suck_blow_10');
+                this.hero.play('anim_blow');
+
+                // Create the gust using stored flick data
+                if (this.pendingFlick) {
+                    this.createGustFromFlick(this.pendingFlick.end);
+                    this.pendingFlick = null;
+                }
+
+                this.hero.once('animationcomplete', () => {
+                    // After blow, check if more lung air for another cycle
+                    if (this.lungAir > 0 && this.balloonFill > 0) {
+                        this.transitionTo(HeroState.SUCK_CYCLE);
+                    } else if (this.lungAir > 0) {
+                        // Has lung air but no balloon air - stay ready to blow
+                        this.transitionTo(HeroState.AT_SUCK);
+                    } else {
+                        // Return to tank position (hand on nozzle), NOT face front
+                        this.transitionTo(HeroState.RETURNING_TO_TANK);
+                    }
+                });
+                break;
+
+            case HeroState.SUCK_CYCLE:
+                // Return to suck position in cycle
+                this.hero.setTexture('eric_suck_blow_01');
+                this.hero.play('anim_suck_cycle');
+                this.hero.once('animationcomplete', () => {
+                    this.transitionTo(HeroState.AT_SUCK);
+                });
+                break;
+
+            case HeroState.RETURNING_TO_TANK:
+                // After blow, return to tank position (hand on nozzle)
+                this.hero.setTexture('eric_pivot_to_suck_51');
+                this.hero.play('anim_return_to_tank');
+                this.hero.once('animationcomplete', () => {
+                    this.transitionTo(HeroState.AT_TANK);
+                });
+                break;
+
+            case HeroState.RETURNING_TO_IDLE:
+                // Only used after pop or when waiting for Scully
+                this.hero.setTexture('eric_pivot_to_tank_20');
+                this.hero.play('anim_return_to_idle');
+                this.hero.once('animationcomplete', () => {
+                    this.transitionTo(HeroState.IDLE);
+                });
+                break;
+
+            case HeroState.SCARED:
+                this.hero.setTexture('eric_scared_01');
+                this.hero.play('anim_scared');
+                this.hero.once('animationcomplete', () => {
+                    this.transitionTo(HeroState.STARTLED_TO_CALM);
+                });
+                break;
+
+            case HeroState.STARTLED_TO_CALM:
+                this.hero.setTexture('eric_startled_to_calm_01');
+                this.hero.play('anim_startled_to_calm');
+                this.hero.once('animationcomplete', () => {
+                    this.transitionTo(HeroState.IDLE);
+                });
+                break;
+        }
     }
 
     createCakePlaceholder() {
@@ -282,6 +741,76 @@ export class GameScene extends Phaser.Scene {
         };
     }
 
+    createCakeWithSprite() {
+        const { width, height } = this.scale;
+
+        // Ground level (same as other sprites)
+        const groundY = height - 150;
+
+        // Cake sprite is 506x1024, scale to fit portrait layout
+        const cakeScale = 0.33;
+        const cakeX = width - 90;
+        const cakeBaseY = groundY;
+
+        this.cake = this.add.sprite(cakeX, cakeBaseY, 'cake');
+        this.cake.setScale(cakeScale);
+        this.cake.setOrigin(0.5, 1); // Bottom center origin
+        this.cake.setTint(0xaaaaaa); // Darken cake for candle contrast
+
+        // Store cake bounds for candle positioning
+        const cakeWidth = 506 * cakeScale;
+        const cakeHeight = 1024 * cakeScale;
+
+        this.cakeBounds = {
+            x: cakeX,
+            top: cakeBaseY - cakeHeight,
+            bottom: cakeBaseY,
+            width: cakeWidth
+        };
+
+        // Generate candle slots along the visible tiers of the cake
+        // The cake has multiple tiers getting narrower toward top
+        this.candleSlots = [];
+
+        // Tier positions tuned to match the actual cake sprite (from bottom to top)
+        // y is distance from bottom of cake to TOP of each tier
+        // Elevated by ~2 candle heights (~0.09 of cake height)
+        const tierConfigs = [
+            { y: 0.19, width: 0.92, slots: 9 },   // Tier 1 (bottom)
+            { y: 0.24, width: 0.87, slots: 8 },   // Tier 2
+            { y: 0.29, width: 0.82, slots: 8 },   // Tier 3
+            { y: 0.34, width: 0.77, slots: 7 },   // Tier 4
+            { y: 0.39, width: 0.72, slots: 7 },   // Tier 5
+            { y: 0.44, width: 0.67, slots: 6 },   // Tier 6
+            { y: 0.49, width: 0.62, slots: 6 },   // Tier 7
+            { y: 0.54, width: 0.56, slots: 5 },   // Tier 8
+            { y: 0.59, width: 0.50, slots: 5 },   // Tier 9
+            { y: 0.64, width: 0.44, slots: 4 },   // Tier 10
+            { y: 0.69, width: 0.38, slots: 4 },   // Tier 11
+            { y: 0.74, width: 0.32, slots: 3 },   // Tier 12
+            { y: 0.79, width: 0.26, slots: 3 },   // Tier 13
+            { y: 0.84, width: 0.21, slots: 2 },   // Tier 14
+            { y: 0.89, width: 0.16, slots: 2 },   // Tier 15
+            { y: 0.94, width: 0.12, slots: 1 },   // Tier 16
+        ];
+
+        tierConfigs.forEach((tier, tierIndex) => {
+            const slotY = cakeBaseY - (cakeHeight * tier.y);
+            const tierWidth = cakeWidth * tier.width;
+            const slotSpacing = tierWidth / (tier.slots + 1);
+
+            for (let s = 0; s < tier.slots; s++) {
+                const slotX = cakeX - tierWidth / 2 + slotSpacing * (s + 1);
+                this.candleSlots.push({
+                    x: slotX,
+                    y: slotY,
+                    tier: tierIndex,
+                    index: s
+                });
+            }
+        });
+    }
+
     createCandles(pattern = null) {
         // If no pattern, light all 101 candles
         const activeSlots = pattern || this.candleSlots.map(() => true);
@@ -292,18 +821,18 @@ export class GameScene extends Phaser.Scene {
             const candleX = slot.x;
             const candleY = slot.y;
 
-            // Candle stick (blue) - smaller to fit more
-            const stick = this.add.rectangle(candleX, candleY + 8, 4, 16, 0x4A90D9);
+            // Candle stick (blue) - 25% larger
+            const stick = this.add.rectangle(candleX, candleY + 5, 3, 12, 0x4A90D9);
 
-            // Flame (orange/yellow)
-            const flame = this.add.ellipse(candleX, candleY - 4, 6, 10, 0xFF9500);
+            // Flame (orange/yellow) - 25% larger
+            const flame = this.add.ellipse(candleX, candleY - 3, 5, 8, 0xFF9500);
             flame.setStrokeStyle(1, 0xFFCC00);
 
             this.candles.push({
                 stick,
                 flame,
                 x: candleX,
-                y: candleY - 4, // Flame position for hit detection
+                y: candleY - 3, // Flame position for hit detection
                 lit: true,
                 slotIndex: index
             });
@@ -358,14 +887,24 @@ export class GameScene extends Phaser.Scene {
     }
 
     onPointerDown(pointer) {
-        const tankBounds = this.tank.getBounds();
-        const nozzleBounds = this.tankNozzle.getBounds();
+        const tankBounds = this.tankHitArea.getBounds();
 
-        // Check if touching tank/nozzle area - start inflating
-        if (Phaser.Geom.Rectangle.Contains(tankBounds, pointer.x, pointer.y) ||
-            Phaser.Geom.Rectangle.Contains(nozzleBounds, pointer.x, pointer.y)) {
-            this.isInflating = true;
-            this.flickStart = null;
+        // Check if touching tank area - start inflating
+        if (Phaser.Geom.Rectangle.Contains(tankBounds, pointer.x, pointer.y)) {
+            // Can only go to tank from idle state
+            if (this.heroState === HeroState.IDLE) {
+                this.isInflating = true;
+                this.flickStart = null;
+                this.transitionTo(HeroState.PIVOTING_TO_TANK);
+            } else if (this.heroState === HeroState.AT_TANK) {
+                // Already at tank, just start inflating
+                this.isInflating = true;
+                this.flickStart = null;
+                // Start airflow sound
+                if (this.airflowSound && !this.airflowSound.isPlaying) {
+                    this.airflowSound.play();
+                }
+            }
         } else {
             // Store start position for potential flick
             this.flickStart = { x: pointer.x, y: pointer.y, time: pointer.downTime };
@@ -380,44 +919,76 @@ export class GameScene extends Phaser.Scene {
             pointer.x, pointer.y, this.chestX, this.chestY
         );
 
-        if (distToChest < 50 && this.balloonFill > 0 && !this.isInflating) {
-            this.isInhaling = true;
-            this.isInflating = false;
+        // Can start inhaling when hero is at suck position
+        if (distToChest < 50 && this.balloonFill > 0 && !this.isInflating &&
+            this.heroState === HeroState.AT_SUCK) {
+            if (!this.isInhaling) {
+                this.isInhaling = true;
+                // Trigger the suck animation
+                this.transitionTo(HeroState.SUCKING);
+            }
         } else if (this.isInflating) {
             // Check if still on tank
-            const tankBounds = this.tank.getBounds();
-            const nozzleBounds = this.tankNozzle.getBounds();
-            if (!Phaser.Geom.Rectangle.Contains(tankBounds, pointer.x, pointer.y) &&
-                !Phaser.Geom.Rectangle.Contains(nozzleBounds, pointer.x, pointer.y)) {
+            const tankBounds = this.tankHitArea.getBounds();
+            if (!Phaser.Geom.Rectangle.Contains(tankBounds, pointer.x, pointer.y)) {
                 this.isInflating = false;
             }
         }
     }
 
     onPointerUp(pointer) {
-        // Check for flick gesture
-        if (this.flickStart && !this.isInflating && !this.isInhaling) {
+        // Check for flick gesture (blow)
+        if (this.flickStart && !this.isInflating && !this.isInhaling && this.lungAir > 0) {
             const flickEnd = { x: pointer.x, y: pointer.y };
-
-            // Check if release is to the right of mouth (valid blow direction)
             const dxFromMouth = flickEnd.x - this.mouthX;
             const dyFromMouth = flickEnd.y - this.mouthY;
             const distFromMouth = Math.sqrt(dxFromMouth * dxFromMouth + dyFromMouth * dyFromMouth);
 
-            // Must release to the right of mouth, with some minimum distance
+            // Must flick to the right of mouth
             if (dxFromMouth > 20 && distFromMouth > 50) {
-                this.executeFlick(this.flickStart, flickEnd, distFromMouth);
+                // Store flick data for when blow animation completes
+                this.pendingFlick = { end: flickEnd, distance: distFromMouth };
+                this.transitionTo(HeroState.BLOW_SETUP);
             }
         }
 
-        // Handle end of inflation - apply degradation
+        // Handle end of inflation
         if (this.isInflating && this.balloonFill > 0) {
             this.applyBalloonDegradation();
+        }
+
+        // When done inflating, transition based on balloon state
+        if (this.isInflating &&
+            (this.heroState === HeroState.AT_TANK || this.heroState === HeroState.PIVOTING_TO_TANK)) {
+            if (this.balloonFill > 0) {
+                // Has air - pivot to suck position
+                this.transitionTo(HeroState.PIVOTING_TO_SUCK);
+            } else {
+                // No air - return to idle
+                this.transitionTo(HeroState.PIVOTING_FROM_TANK);
+            }
+        }
+
+        // Handle end of inhaling
+        if (this.isInhaling) {
+            if (this.balloonFill <= 0 && this.lungAir <= 0) {
+                // No more air anywhere - return to idle
+                this.transitionTo(HeroState.RETURNING_TO_IDLE);
+                this.recreateBalloon();
+            } else {
+                // Still have air - go back to at_suck ready state
+                this.transitionTo(HeroState.AT_SUCK);
+            }
         }
 
         this.isInflating = false;
         this.isInhaling = false;
         this.flickStart = null;
+
+        // Stop airflow sound
+        if (this.airflowSound && this.airflowSound.isPlaying) {
+            this.airflowSound.stop();
+        }
     }
 
     applyBalloonDegradation() {
@@ -443,7 +1014,10 @@ export class GameScene extends Phaser.Scene {
     }
 
     showDegradationFeedback(message) {
-        const text = this.add.text(this.balloon.x, this.balloon.y - 50, message, {
+        // Use balloon position if exists, otherwise use stored rest position
+        const x = this.balloon ? this.balloon.x : this.balloonRestX;
+        const y = this.balloon ? this.balloon.y : this.balloonRestY;
+        const text = this.add.text(x, y - 50, message, {
             fontSize: '12px',
             color: '#ff0000'
         }).setOrigin(0.5);
@@ -458,17 +1032,32 @@ export class GameScene extends Phaser.Scene {
     }
 
     popBalloon() {
-        // Visual feedback
-        const popText = this.add.text(this.balloon.x, this.balloon.y, 'POP!', {
+        // Play pop sound
+        if (this.popSound) {
+            this.popSound.play();
+        }
+
+        // Store position before destroying (use rest position as fallback)
+        const popX = this.balloon ? this.balloon.x : this.balloonRestX;
+        const popY = this.balloon ? this.balloon.y : this.balloonRestY;
+
+        // Destroy balloon immediately to avoid any rendering artifacts
+        if (this.balloon) {
+            this.balloon.destroy();
+            this.balloon = null;
+        }
+
+        // Visual feedback at stored position
+        const popText = this.add.text(popX, popY, 'POP!', {
             fontSize: '24px',
             color: '#ff0000',
             fontStyle: 'bold'
         }).setOrigin(0.5);
-
-        // Hide balloon during replacement
-        this.balloon.setVisible(false);
         this.balloonFill = 0;
         this.isWaitingForBalloon = true;
+
+        // Play scared animation using state machine
+        this.transitionTo(HeroState.SCARED);
 
         // Fade out pop text
         this.tweens.add({
@@ -482,16 +1071,14 @@ export class GameScene extends Phaser.Scene {
         // Wait for Scully to fetch new balloon
         this.time.delayedCall(this.debug.balloonReplaceTime, () => {
             this.balloonCapacity = 100; // Fresh balloon
-            this.balloon.setVisible(true);
+            this.balloonFill = 0; // Empty balloon
+            this.recreateBalloon();
             this.isWaitingForBalloon = false;
-            this.updateBalloonVisual();
             this.updateMeterCapacity(); // Reset meter to full size
         });
     }
 
-    executeFlick(start, end, flickDistance) {
-        if (this.lungAir <= 0) return;
-
+    createGustFromFlick(end) {
         // Trajectory is always from MOUTH to release point
         const dx = end.x - this.mouthX;
         const dy = end.y - this.mouthY;
@@ -605,11 +1192,35 @@ export class GameScene extends Phaser.Scene {
     }
 
     update(time, delta) {
-        // Handle continuous inflate (blocked if waiting for balloon)
-        if (this.isInflating && !this.isWaitingForBalloon) {
+        // Handle continuous inflate (only when hero is at tank touching nozzle)
+        if (this.isInflating && !this.isWaitingForBalloon && this.heroState === HeroState.AT_TANK) {
             this.balloonFill = Math.min(this.balloonCapacity, this.balloonFill + this.debug.fillSpeed);
             this.updateBalloonVisual();
             this.updateBalloonMeter();
+
+            // Check if in red zone - geometric pop probability
+            const fillPercent = (this.balloonFill / this.balloonCapacity) * 100;
+            if (fillPercent > this.redZone[0]) {
+                // Track when we entered red zone
+                if (!this.redZoneEntryTime) {
+                    this.redZoneEntryTime = time;
+                }
+
+                // Time in red zone (ms)
+                const timeInRed = time - this.redZoneEntryTime;
+
+                // Geometric probability: increases over time
+                // P = 1 - (1 - baseRate)^(timeInRed/100)
+                // Higher baseRate = pops faster
+                const popProbability = 1 - Math.pow(1 - this.debug.redPopRate, timeInRed / 100);
+
+                if (Math.random() < popProbability) {
+                    this.popBalloon();
+                }
+            } else {
+                // Exited red zone, reset timer
+                this.redZoneEntryTime = null;
+            }
         }
 
         // Handle continuous inhale
@@ -625,12 +1236,21 @@ export class GameScene extends Phaser.Scene {
             this.updateBalloonMeter();
             this.updateLungMeter();
             this.updateCheeks();
+
+            // Reset red zone timer if balloon drops below red zone
+            const fillPercent = (this.balloonFill / this.balloonCapacity) * 100;
+            if (fillPercent <= this.redZone[0]) {
+                this.redZoneEntryTime = null;
+            }
         }
     }
 
     updateBalloonVisual() {
-        // Scale balloon based on fill (min size 10x15, max 50x70)
-        const scale = 1 + (this.balloonFill / this.balloonCapacity) * 4;
+        // Skip if balloon doesn't exist (destroyed during inhale or pop)
+        if (!this.balloon) return;
+
+        // Scale balloon based on fill (using ellipse placeholder)
+        const scale = 1 + (this.balloonFill / this.balloonCapacity) * 3;
         this.balloon.setScale(scale, scale);
 
         // Color based on zone
