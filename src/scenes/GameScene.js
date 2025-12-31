@@ -39,6 +39,10 @@ export class GameScene extends Phaser.Scene {
         // Balloon replacement state
         this.isWaitingForBalloon = false;
 
+        // Balloon ownership and orientation tracking
+        this.balloonHolder = 'none';  // 'none', 'scully', 'hero'
+        this.balloonFlipped = false;  // false = opening down (at tank), true = opening up (at suck)
+
         // Red zone pop tracking
         this.redZoneEntryTime = null;  // When balloon entered red zone
 
@@ -278,6 +282,7 @@ export class GameScene extends Phaser.Scene {
         this.tank = this.add.sprite(tankX, groundY, 'tank');
         this.tank.setScale(tankScale);
         this.tank.setOrigin(0.5, 1); // Bottom center origin
+        this.tank.setDepth(10);  // Tank is furthest back
 
         // Create invisible hitbox for tank interaction (covers tank + nozzle area)
         // Use a zone instead of rectangle to avoid rendering issues
@@ -293,6 +298,7 @@ export class GameScene extends Phaser.Scene {
         this.hero = this.add.sprite(this.characterX, this.characterY, 'eric_pivot_to_tank_01');
         this.hero.setScale(heroScale);
         this.hero.setOrigin(0.5, 1); // Bottom center origin
+        this.hero.setDepth(20);  // Hero in front of tank and balloon
 
         // Create all hero animations
         this.createHeroAnimations();
@@ -306,20 +312,33 @@ export class GameScene extends Phaser.Scene {
         this.chestY = this.characterY - 140;
         this.chestZone = this.add.circle(this.chestX, this.chestY, 40, 0x00ff00, 0.0); // Invisible
 
-        // Balloon - using ellipse placeholder until sprite frames are fixed
+        // Balloon positions for different hero states
+        // Tank position: balloon at Eric's extended hand near tank nozzle
+        this.balloonAtTankX = tankX + 35;  // Just right of tank nozzle
+        this.balloonAtTankY = groundY - 200;  // At hand height
+
+        // Suck position: balloon at Eric's mouth
+        this.balloonAtSuckX = this.characterX + 10;
+        this.balloonAtSuckY = this.characterY - 240;  // At mouth height
+
+        // Rest position (when idle - hidden or at default spot)
         this.balloonRestX = this.characterX + 35;
         this.balloonRestY = this.characterY - 180;
-        this.balloon = this.add.ellipse(this.balloonRestX, this.balloonRestY, 20, 30, 0x7ED321);
-        this.balloon.setStrokeStyle(2, 0x5BA318);
 
-        // Store frame ranges for zones (48 total frames)
-        // Green: 0-28, Yellow: 29-38, Orange: 39-44, Red: 45-47
+        // Create balloon sprite (starts hidden - Scully delivers it)
+        this.balloon = this.add.sprite(this.balloonAtTankX, this.balloonAtTankY, 'balloon_phases_01');
+        this.balloon.setScale(0.25);  // Scale down balloon sprite
+        this.balloon.setOrigin(0.5, 1);  // Origin at nozzle (bottom center)
+        this.balloon.setDepth(15);  // Balloon behind hero, in front of tank
+        this.balloon.setVisible(false);  // Hidden until Scully delivers or hero inflates
+        this.balloonHolder = 'hero';  // Start with hero holding (for now, until Scully entrance is implemented)
+
+        // Balloon has 40 frames: 1-40 maps to fill 0-100%
         this.balloonFrames = {
-            total: 48,
-            greenEnd: 28,      // Frames 0-28: green, increasing size
-            yellowEnd: 38,     // Frames 29-38: yellow zone
-            orangeEnd: 44,     // Frames 39-44: orange zone
-            redEnd: 47         // Frames 45-47: red zone (danger!)
+            total: 40,
+            greenEnd: 24,      // Frames 1-24: green zone (0-60%)
+            yellowEnd: 34,     // Frames 25-34: yellow zone (61-85%)
+            redEnd: 40         // Frames 35-40: red zone (86-100%)
         };
 
         // Cheeks indicator - hidden for now since hero has actual face
@@ -334,12 +353,17 @@ export class GameScene extends Phaser.Scene {
         // Reset red zone tracking
         this.redZoneEntryTime = null;
 
-        // Create fresh balloon ellipse
+        // Create fresh balloon sprite
         if (this.balloon) {
             this.balloon.destroy();
         }
-        this.balloon = this.add.ellipse(this.balloonRestX, this.balloonRestY, 20, 30, 0x7ED321);
-        this.balloon.setStrokeStyle(2, 0x5BA318);
+        this.balloon = this.add.sprite(this.balloonAtTankX, this.balloonAtTankY, 'balloon_phases_01');
+        this.balloon.setScale(0.25);
+        this.balloon.setOrigin(0.5, 1);  // Origin at nozzle (bottom center)
+        this.balloon.setDepth(15);  // Balloon behind hero, in front of tank
+        this.balloon.setVisible(true);
+        this.balloonHolder = 'hero';
+        this.balloonFlipped = false;  // Opening down for tank position
         this.updateBalloonVisual();
     }
 
@@ -535,6 +559,13 @@ export class GameScene extends Phaser.Scene {
             case HeroState.PIVOTING_TO_TANK:
                 this.hero.setTexture('eric_pivot_to_tank_01');
                 this.hero.play('anim_pivot_to_tank');
+                // Show balloon at tank position as hero pivots toward it
+                if (this.balloon) {
+                    this.balloon.setPosition(this.balloonAtTankX, this.balloonAtTankY);
+                    this.balloon.setFlipY(false);  // Opening down for tank
+                    this.balloon.setVisible(true);
+                    this.balloonFlipped = false;
+                }
                 this.hero.once('animationcomplete', () => {
                     this.transitionTo(HeroState.AT_TANK);
                 });
@@ -546,6 +577,12 @@ export class GameScene extends Phaser.Scene {
                 // Start airflow sound when at tank and inflating
                 if (this.isInflating && this.airflowSound && !this.airflowSound.isPlaying) {
                     this.airflowSound.play();
+                }
+                // Show balloon at tank position
+                if (this.balloon) {
+                    this.balloon.setVisible(true);
+                    this.balloon.setFlipY(false);  // Opening down for tank
+                    this.balloon.setPosition(this.balloonAtTankX, this.balloonAtTankY);
                 }
                 break;
 
@@ -560,7 +597,22 @@ export class GameScene extends Phaser.Scene {
             case HeroState.PIVOTING_TO_SUCK:
                 this.hero.setTexture('eric_pivot_to_suck_01');
                 this.hero.play('anim_pivot_to_suck');
+                // Track animation frames to flip balloon when back is to camera
+                // pivot_to_suck has 51 frames, flip around frame 25-30
+                this.hero.on('animationupdate', (anim, frame) => {
+                    if (anim.key === 'anim_pivot_to_suck' && this.balloon) {
+                        const frameNum = parseInt(frame.textureKey.split('_').pop());
+                        if (frameNum >= 25 && !this.balloonFlipped) {
+                            // Flip balloon when hero's back is to camera
+                            this.balloon.setFlipY(true);
+                            this.balloonFlipped = true;
+                            // Move to suck position
+                            this.balloon.setPosition(this.balloonAtSuckX, this.balloonAtSuckY);
+                        }
+                    }
+                });
                 this.hero.once('animationcomplete', () => {
+                    this.hero.off('animationupdate');  // Clean up listener
                     this.transitionTo(HeroState.AT_SUCK);
                 });
                 break;
@@ -570,6 +622,13 @@ export class GameScene extends Phaser.Scene {
                 // Puffed cheeks only appear during SUCKING animation
                 this.hero.setTexture('eric_pivot_to_suck_51');
                 this.hero.play('anim_at_suck');
+                // Position balloon at suck position
+                if (this.balloon) {
+                    this.balloon.setPosition(this.balloonAtSuckX, this.balloonAtSuckY);
+                    this.balloon.setFlipY(true);  // Opening up for sucking
+                    this.balloon.setVisible(this.balloonFill > 0);
+                    this.balloonFlipped = true;
+                }
                 break;
 
             case HeroState.SUCKING:
@@ -646,7 +705,23 @@ export class GameScene extends Phaser.Scene {
                 // After blow, return to tank position (hand on nozzle)
                 this.hero.setTexture('eric_pivot_to_suck_51');
                 this.hero.play('anim_return_to_tank');
+                // Track animation frames to flip balloon when back is to camera
+                // return_to_tank is reversed pivot_to_suck (51 frames going backward)
+                // Flip around frame 25 (going from 51 to 1)
+                this.hero.on('animationupdate', (anim, frame) => {
+                    if (anim.key === 'anim_return_to_tank' && this.balloon) {
+                        const frameNum = parseInt(frame.textureKey.split('_').pop());
+                        if (frameNum <= 25 && this.balloonFlipped) {
+                            // Flip balloon back when hero's back is to camera
+                            this.balloon.setFlipY(false);
+                            this.balloonFlipped = false;
+                            // Move to tank position
+                            this.balloon.setPosition(this.balloonAtTankX, this.balloonAtTankY);
+                        }
+                    }
+                });
                 this.hero.once('animationcomplete', () => {
+                    this.hero.off('animationupdate');  // Clean up listener
                     this.transitionTo(HeroState.AT_TANK);
                 });
                 break;
@@ -663,6 +738,11 @@ export class GameScene extends Phaser.Scene {
             case HeroState.SCARED:
                 this.hero.setTexture('eric_scared_01');
                 this.hero.play('anim_scared');
+                // Hide balloon (it just popped)
+                if (this.balloon) {
+                    this.balloon.setVisible(false);
+                }
+                this.balloonFlipped = false;  // Reset for next balloon
                 this.hero.once('animationcomplete', () => {
                     this.transitionTo(HeroState.STARTLED_TO_CALM);
                 });
@@ -756,6 +836,7 @@ export class GameScene extends Phaser.Scene {
         this.cake.setScale(cakeScale);
         this.cake.setOrigin(0.5, 1); // Bottom center origin
         this.cake.setTint(0xaaaaaa); // Darken cake for candle contrast
+        this.cake.setDepth(30);  // Cake in front of everything
 
         // Store cake bounds for candle positioning
         const cakeWidth = 506 * cakeScale;
@@ -1249,18 +1330,61 @@ export class GameScene extends Phaser.Scene {
         // Skip if balloon doesn't exist (destroyed during inhale or pop)
         if (!this.balloon) return;
 
-        // Scale balloon based on fill (using ellipse placeholder)
-        const scale = 1 + (this.balloonFill / this.balloonCapacity) * 3;
-        this.balloon.setScale(scale, scale);
+        // Map fill level (0-100) to frame number (1-40)
+        // Ensure minimum frame 1 when there's any fill, 0 fill = frame 1 (deflated)
+        const fillPercent = this.balloonCapacity > 0 ? (this.balloonFill / this.balloonCapacity) * 100 : 0;
+        const frameIndex = Math.max(1, Math.min(40, Math.ceil(fillPercent * 0.4)));
+        const frameNum = String(frameIndex).padStart(2, '0');
+        this.balloon.setTexture(`balloon_phases_${frameNum}`);
 
-        // Color based on zone
-        const fillPercent = (this.balloonFill / this.balloonCapacity) * 100;
-        if (fillPercent > this.redZone[0]) {
-            this.balloon.setFillStyle(0xD0021B); // Red
-        } else if (fillPercent > this.yellowZone[0]) {
-            this.balloon.setFillStyle(0xF5A623); // Yellow
-        } else {
-            this.balloon.setFillStyle(0x7ED321); // Green
+        // Position balloon based on hero state
+        this.updateBalloonPosition();
+    }
+
+    updateBalloonPosition() {
+        if (!this.balloon || this.balloonHolder !== 'hero') return;
+
+        // Position based on current hero state
+        switch (this.heroState) {
+            case HeroState.PIVOTING_TO_TANK:
+            case HeroState.AT_TANK:
+            case HeroState.RETURNING_TO_TANK:
+                // At tank: balloon at hero's extended hand near nozzle
+                this.balloon.setPosition(this.balloonAtTankX, this.balloonAtTankY);
+                this.balloon.setFlipY(false);  // Opening down (into tank)
+                this.balloon.setVisible(true);
+                break;
+
+            case HeroState.PIVOTING_TO_SUCK:
+                // During pivot: keep balloon visible, flip happens mid-animation
+                this.balloon.setVisible(true);
+                // Flip when back is to camera (roughly mid-animation)
+                // This will be refined with animation progress tracking
+                break;
+
+            case HeroState.AT_SUCK:
+            case HeroState.SUCKING:
+            case HeroState.BLOW_SETUP:
+            case HeroState.BLOWING:
+            case HeroState.SUCK_CYCLE:
+                // At suck position: balloon at hero's mouth
+                this.balloon.setPosition(this.balloonAtSuckX, this.balloonAtSuckY);
+                this.balloon.setFlipY(true);  // Opening up (into mouth)
+                this.balloon.setVisible(this.balloonFill > 0);  // Hide when empty
+                break;
+
+            case HeroState.IDLE:
+            case HeroState.PIVOTING_FROM_TANK:
+            case HeroState.RETURNING_TO_IDLE:
+            case HeroState.SCARED:
+            case HeroState.STARTLED_TO_CALM:
+                // Hide balloon during these states
+                this.balloon.setVisible(false);
+                break;
+
+            default:
+                // Default position
+                this.balloon.setPosition(this.balloonRestX, this.balloonRestY);
         }
     }
 
