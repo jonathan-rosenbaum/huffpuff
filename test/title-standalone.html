@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balloon Blowout - Title</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #1a1a2e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: system-ui, sans-serif;
+    }
+    .phone-frame {
+      width: 390px;
+      height: 844px;
+      background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 50%, #FFE4E1 100%);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <canvas id="titleCanvas" width="390" height="844"></canvas>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('titleCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Title text settings
+    const title = {
+      text1: 'BALLOON',
+      text2: 'BLOWOUT',
+      y: 200
+    };
+
+    function drawTitle() {
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Background gradient
+      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      gradient.addColorStop(0, '#87CEEB');
+      gradient.addColorStop(0.5, '#E0F6FF');
+      gradient.addColorStop(1, '#FFE4E1');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Title styling
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // "BALLOON" text
+      ctx.font = 'bold 64px system-ui';
+      ctx.fillStyle = '#7ED321'; // Lime green (balloon color)
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 4;
+      ctx.strokeText(title.text1, canvas.width / 2, title.y);
+      ctx.fillText(title.text1, canvas.width / 2, title.y);
+
+      // "BLOWOUT" text
+      ctx.font = 'bold 72px system-ui';
+      ctx.fillStyle = '#FF9500'; // Orange (flame color)
+      ctx.strokeText(title.text2, canvas.width / 2, title.y + 70);
+      ctx.fillText(title.text2, canvas.width / 2, title.y + 70);
+
+      // Placeholder for graphics
+      ctx.fillStyle = 'rgba(0,0,0,0.1)';
+      ctx.fillRect(95, 350, 200, 300);
+      ctx.fillStyle = '#666';
+      ctx.font = '16px system-ui';
+      ctx.fillText('[ cake graphic ]', canvas.width / 2, 500);
+
+      // Tap to start
+      ctx.font = '24px system-ui';
+      ctx.fillStyle = '#333';
+      ctx.fillText('Tap to Start', canvas.width / 2, 750);
+    }
+
+    drawTitle();
+  </script>
+</body>
+</html>
