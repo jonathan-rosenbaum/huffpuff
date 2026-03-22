@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Bay Area Restaurant Guide — Seven Gems Across the East Bay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FFF8F0;
+  --warm-white: #FFFDF9;
+  --gold: #C9A96E;
+  --gold-light: #E8D5B0;
+  --gold-dark: #8B7340;
+  --charcoal: #2C2C2C;
+  --soft-black: #1A1A1A;
+  --warm-gray: #6B6560;
+  --light-gray: #E8E4DF;
+  --blush: #F5E6E0;
+  --sage: #D4DDD2;
+  --sky: #D6E4EE;
+  --lavender: #E8E0F0;
+  --peach: #F8E8D8;
+  --terra: #E8D0C0;
+  --seafoam: #D0E8E4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lora', 'Georgia', serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%);
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(201,169,110,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(201,169,110,0.1) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 80%, rgba(255,140,50,0.08) 0%, transparent 40%);
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 700px; }
+
+.hero-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-subtitle {
+  font-family: 'Lora', serif;
+  font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+  color: rgba(255,255,255,0.7);
+  font-weight: 400;
+  font-style: italic;
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+}
+
+.hero-scroll {
+  display: inline-block;
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  border: 1px solid rgba(201,169,110,0.4);
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.hero-scroll:hover {
+  background: rgba(201,169,110,0.15);
+  border-color: var(--gold);
+}
+
+/* Decorative dots */
+.hero-dots {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+.hero-dots span {
+  width: 4px; height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+/* ===== INTRO ===== */
+.intro {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+}
+
+.intro p {
+  font-size: 1.15rem;
+  color: var(--warm-gray);
+  line-height: 1.9;
+}
+
+.intro p + p { margin-top: 1.2rem; }
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 3rem auto;
+  max-width: 200px;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gold-light);
+}
+
+.divider-diamond {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* ===== RESTAURANT CARDS ===== */
+.restaurants {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+.restaurant-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-bottom: 5rem;
+  background: var(--warm-white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.06), 0 1px 8px rgba(0,0,0,0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 60px rgba(0,0,0,0.1), 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.restaurant-card:nth-child(even) {
+  direction: rtl;
+}
+.restaurant-card:nth-child(even) > * {
+  direction: ltr;
+}
+
+.card-visual {
+  position: relative;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.card-visual-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+}
+
+/* Each restaurant gets a unique warm gradient */
+.card-farmhouse .card-visual-bg {
+  background: linear-gradient(145deg, #2d5016 0%, #4a7c28 30%, #6b8e23 60%, #3d6b1a 100%);
+}
+.card-iyasare .card-visual-bg {
+  background: linear-gradient(145deg, #1a1a2e 0%, #2d3a5c 30%, #4a5a7a 60%, #1a2840 100%);
+}
+.card-india .card-visual-bg {
+  background: linear-gradient(145deg, #8B4513 0%, #CD853F 30%, #DAA520 60%, #B8860B 100%);
+}
+.card-burma .card-visual-bg {
+  background: linear-gradient(145deg, #8B0000 0%, #CD5C5C 30%, #E9967A 60%, #A0522D 100%);
+}
+.card-bocanova .card-visual-bg {
+  background: linear-gradient(145deg, #2F4F4F 0%, #3E8E8E 30%, #48A9A6 60%, #2C6E6A 100%);
+}
+.card-sirene .card-visual-bg {
+  background: linear-gradient(145deg, #191970 0%, #2E4482 30%, #4169E1 60%, #1C3A7A 100%);
+}
+.card-skates .card-visual-bg {
+  background: linear-gradient(145deg, #C46200 0%, #E8850A 30%, #FFB347 60%, #D4761C 100%);
+}
+
+.card-visual-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+}
+
+.card-visual-content {
+  position: relative;
+  z-index: 1;
+}
+
+.card-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.12);
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  line-height: 1;
+}
+
+.card-cuisine-tag {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  margin-bottom: 0.8rem;
+}
+
+.card-visual-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.card-visual-location {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  margin-top: 0.4rem;
+}
+
+/* Card body */
+.card-body {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.stars {
+  color: var(--gold);
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+}
+
+.rating-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: var(--warm-gray);
+}
+
+.card-description {
+  font-size: 0.98rem;
+  color: var(--warm-gray);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.card-highlights {
+  margin-bottom: 1.5rem;
+}
+
+.card-highlights h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 0.7rem;
+}
+
+.dish-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.dish-list li {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: var(--charcoal);
+  background: var(--cream);
+  padding: 0.3rem 0.7rem;
+  border-radius: 50px;
+  border: 1px solid var(--light-gray);
+}
+
+.card-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--light-gray);
+}
+
+.detail-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+}
+
+.detail-label {
+  color: var(--warm-gray);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.detail-value {
+  color: var(--charcoal);
+  font-weight: 400;
+}
+
+.detail-value a {
+  color: var(--gold-dark);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold-light);
+  transition: border-color 0.2s;
+}
+
+.detail-value a:hover {
+  border-color: var(--gold-dark);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--soft-black);
+  color: rgba(255,255,255,0.5);
+}
+
+.footer-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--gold);
+  max-width: 600px;
+  margin: 0 auto 1rem;
+  line-height: 1.5;
+}
+
+.footer-attribution {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .restaurant-card {
+    grid-template-columns: 1fr;
+  }
+
+  .restaurant-card:nth-child(even) {
+    direction: ltr;
+  }
+
+  .card-visual { min-height: 300px; }
+  .card-body { padding: 2rem 1.5rem; }
+  .card-number { font-size: 3.5rem; }
+  .card-details { grid-template-columns: 1fr; }
+
+  .intro { padding: 3.5rem 1.5rem 3rem; }
+  .restaurants { padding: 0 1rem 4rem; }
+}
+
+@media (max-width: 480px) {
+  .hero { min-height: 85vh; padding: 1.5rem; }
+  .card-visual { min-height: 250px; }
+  .card-body { padding: 1.5rem 1.2rem; }
+}
+
+/* ===== PRINT ===== */
+@media print {
+  .hero { min-height: auto; padding: 2rem; page-break-after: always; }
+  .restaurant-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">A Curated Dining Guide</p>
+    <h1>Seven <em>Gems</em> of the<br>East Bay</h1>
+    <p class="hero-subtitle">A personal guide to our favorite restaurants across Oakland, Berkeley &amp; Alameda</p>
+    <a href="#restaurants" class="hero-scroll">Explore the Guide</a>
+  </div>
+  <div class="hero-dots">
+    <span></span><span></span><span></span>
+  </div>
+</header>
+
+<!-- ===== INTRO ===== -->
+<section class="intro">
+  <p>The East Bay is home to one of the most vibrant and diverse dining scenes in California. From waterfront Thai to wood-fired seafood, Burmese street food to Pan-American grill &mdash; these seven restaurants each tell a story worth savoring.</p>
+  <p>Whether you're celebrating a milestone, enjoying a quiet lunch, or sharing a meal with someone you love, this guide is for you.</p>
+  <div class="divider"><span class="divider-diamond"></span></div>
+</section>
+
+<!-- ===== RESTAURANTS ===== -->
+<section id="restaurants" class="restaurants">
+
+  <!-- 1. FARMHOUSE KITCHEN THAI -->
+  <article class="restaurant-card card-farmhouse">
+    <div class="card-visual">
+      <div class="card-visual-bg"></div>
+      <div class="card-visual-overlay"></div>
+      <span class="card-number">01</span>
+      <div class="card-visual-content">
+        <span class="card-cuisine-tag">Thai &middot; Jack London Square</span>
+        <h2 class="card-visual-name">Farmhouse Kitchen<br>Thai Cuisine</h2>
+        <p class="card-visual-location">336 Water Street, Oakland</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-rating">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        <span class="rating-text">4.5 &middot; Google &amp; OpenTable</span>
+      </div>
+      <p class="card-description">
+        &ldquo;Thai New Generation&rdquo; cuisine by Chef Kasem &ldquo;Pop&rdquo; Saengsawang, who won <em>Chopped</em> Season 61. Rooted in his childhood in Loei, Thailand, this Michelin Bib Gourmand kitchen delivers bold, uncompromised flavors with vibrant waterfront energy.
+      </p>
+      <div class="card-highlights">
+        <h4>Must-Try Dishes</h4>
+        <ul class="dish-list">
+          <li>Hat Yai Fried Chicken</li>
+          <li>Khao Soi</li>
+          <li>Panang Nuea Short Ribs</li>
+          <li>Bangkok Herbal Rice Salad</li>
+          <li>Thai Kabocha Fries</li>
+        </ul>
+      </div>
+      <div class="card-details">
+        <div class="detail-item">
+          <span class="detail-label">Price</span>
+          <span class="detail-value">$20&ndash;30 per person</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Phone</span>
+          <span class="detail-value"><a href="tel:+15104190541">(510) 419-0541</a></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Hours</span>
+          <span class="detail-value">Mon&ndash;Fri 11:30a&ndash;8:30p<br>Sat&ndash;Sun 12p&ndash;9p</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Website</span>
+          <span class="detail-value"><a href="https://farmhousethai.com/oakland" target="_blank">farmhousethai.com</a></span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2. IYASARE -->
+  <article class="restaurant-card card-iyasare">
+    <div class="card-visual">
+      <div class="card-visual-bg"></div>
+      <div class="card-visual-overlay"></div>
+      <span class="card-number">02</span>
+      <div class="card-visual-content">
+        <span class="card-cuisine-tag">Japanese &middot; Fourth Street</span>
+        <h2 class="card-visual-name">iyasare</h2>
+        <p class="card-visual-location">1830 Fourth Street, Berkeley</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-rating">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        <span class="rating-text">4.5 &middot; Michelin Guide Listed</span>
+      </div>
+      <p class="card-description">
+        A serene izakaya where Japanese tradition meets California seasonality. Chef Shotaro Kamio crafts exquisite small plates using local ingredients, served in a minimalist space that feels like a quiet exhale. The name means &ldquo;to be healed&rdquo; in Japanese.
+      </p>
+      <div class="card-highlights">
+        <h4>Must-Try Dishes</h4>
+        <ul class="dish-list">
+          <li>Seasonal Omakase</li>
+          <li>Japanese Curry</li>
+          <li>Grilled Rice Ball</li>
+          <li>Sake Flight</li>
+          <li>Karaage</li>
+        </ul>
+      </div>
+      <div class="card-details">
+        <div class="detail-item">
+          <span class="detail-label">Price</span>
+          <span class="detail-value">$30&ndash;50 per person</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Neighborhood</span>
+          <span class="detail-value">Fourth Street, Berkeley</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Hours</span>
+          <span class="detail-value">Tue&ndash;Sun 5p&ndash;9p<br>Mon Closed</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Website</span>
+          <span class="detail-value"><a href="https://www.iyasare-berkeley.com" target="_blank">iyasare-berkeley.com</a></span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3. INDIA PALACE -->
+  <article class="restaurant-card card-india">
+    <div class="card-visual">
+      <div class="card-visual-bg"></div>
+      <div class="card-visual-overlay"></div>
+      <span class="card-number">03</span>
+      <div class="card-visual-content">
+        <span class="card-cuisine-tag">North Indian &middot; Alameda</span>
+        <h2 class="card-visual-name">India Palace</h2>
+        <p class="card-visual-location">737 Buena Vista Avenue, Alameda</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-rating">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        <span class="rating-text">4.3 &middot; #1 Indian on Yelp (Alameda)</span>
+      </div>
+      <p class="card-description">
+        A beloved island institution since 1991, women-owned India Palace is nestled inside a charming renovated house. The tandoor runs hot, the lunch buffet is legendary, and the heated patio may be the finest outdoor dining spot in Alameda. BYO wine welcome.
+      </p>
+      <div class="card-highlights">
+        <h4>Must-Try Dishes</h4>
+        <ul class="dish-list">
+          <li>Lunch Buffet</li>
+          <li>Tandoori Lamb Chops</li>
+          <li>Navrattan Korma</li>
+          <li>Malai Kofta</li>
+          <li>Mango Kulfi</li>
+        </ul>
+      </div>
+      <div class="card-details">
+        <div class="detail-item">
+          <span class="detail-label">Price</span>
+          <span class="detail-value">~$30 per person</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Phone</span>
+          <span class="detail-value"><a href="tel:+15108148778">(510) 814-8778</a></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Hours</span>
+          <span class="detail-value">Mon&ndash;Sat 11a&ndash;2p, 5p&ndash;9:30p<br>Sun dinner only</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Website</span>
+          <span class="detail-value"><a href="https://www.alamedaindiapalace.com" target="_blank">alamedaindiapalace.com</a></span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 4. BURMA SUPERSTAR -->
+  <article class="restaurant-card card-burma">
+    <div class="card-visual">
+      <div class="card-visual-bg"></div>
+      <div class="card-visual-overlay"></div>
+      <span class="card-number">04</span>
+      <div class="card-visual-content">
+        <span class="card-cuisine-tag">Burmese &middot; Temescal</span>
+        <h2 class="card-visual-name">Burma Superstar</h2>
+        <p class="card-visual-location">4721 Telegraph Avenue, Oakland</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-rating">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        <span class="rating-text">4.0&ndash;4.5 &middot; Bay Area Institution</span>
+      </div>
+      <p class="card-description">
+        The restaurant that put Burmese cuisine on the Bay Area map. Known for jaw-dropping lines and a tea leaf salad that has its own cult following, Burma Superstar bridges the cuisines of Myanmar, India, and Southeast Asia in every dish.
+      </p>
+      <div class="card-highlights">
+        <h4>Must-Try Dishes</h4>
+        <ul class="dish-list">
+          <li>Tea Leaf Salad</li>
+          <li>Rainbow Salad</li>
+          <li>Fiery Tofu</li>
+          <li>Chili Lamb</li>
+          <li>Coconut Chicken Noodle Soup</li>
+        </ul>
+      </div>
+      <div class="card-details">
+        <div class="detail-item">
+          <span class="detail-label">Price</span>
+          <span class="detail-value">$15&ndash;25 per person</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Neighborhood</span>
+          <span class="detail-value">Temescal, Oakland</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Hours</span>
+          <span class="detail-value">Sun&ndash;Thu 11:30a&ndash;9p<br>Fri&ndash;Sat 11:30a&ndash;9:30p</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Website</span>
+          <span class="detail-value"><a href="https://www.burmasuperstar.co" target="_blank">burmasuperstar.co</a></span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 5. BOCANOVA -->
+  <article class="restaurant-card card-bocanova">
+    <div class="card-visual">
+      <div class="card-visual-bg"></div>
+      <div class="card-visual-overlay"></div>
+      <span class="card-number">05</span>
+      <div class="card-visual-content">
+        <span class="card-cuisine-tag">Pan-American &middot; Downtown</span>
+        <h2 class="card-visual-name">Bocanova</h2>
+        <p class="card-visual-location">1111 Broadway, Oakland</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-rating">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        <span class="rating-text">4.6 &middot; TripAdvisor</span>
+      </div>
+      <p class="card-description">
+        Latinx and women-owned, Bocanova celebrates the cuisine of the Americas with a California heart. Chef Rick Hackett (Chez Panisse) and co-chef Martin Ladera (Peru &amp; Japan) craft a seasonal menu around raw bar, rotisserie, and wood-fired plancha.
+      </p>
+      <div class="card-highlights">
+        <h4>Must-Try Dishes</h4>
+        <ul class="dish-list">
+          <li>Ceviche Verde Tostada</li>
+          <li>Peruvian Chicken a la Brasa</li>
+          <li>Dungeness Crab Deviled Eggs</li>
+          <li>Pork Chop</li>
+          <li>Sunday Supper Prix Fixe</li>
+        </ul>
+      </div>
+      <div class="card-details">
+        <div class="detail-item">
+          <span class="detail-label">Price</span>
+          <span class="detail-value">$25&ndash;40 per person</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Phone</span>
+          <span class="detail-value"><a href="tel:+15104971111">(510) 497-1111</a></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Hours</span>
+          <span class="detail-value">Mon&ndash;Fri 11:30a&ndash;8:30p<br>Sat 12p&ndash;8p &middot; Sun 12p&ndash;7p</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Website</span>
+          <span class="detail-value"><a href="https://www.bocanovaoakland.com" target="_blank">bocanovaoakland.com</a></span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 6. SIRENE -->
+  <article class="restaurant-card card-sirene">
+    <div class="card-visual">
+      <div class="card-visual-bg"></div>
+      <div class="card-visual-overlay"></div>
+      <span class="card-number">06</span>
+      <div class="card-visual-content">
+        <span class="card-cuisine-tag">Seafood &middot; Grand Lake</span>
+        <h2 class="card-visual-name">Sirene</h2>
+        <p class="card-visual-location">3308 Grand Avenue, Oakland</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-rating">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="rating-text">4.7 &middot; Google</span>
+      </div>
+      <p class="card-description">
+        A live-fire seafood bistro on charming Grand Avenue. Sirene combines whole-animal and sustainable sourcing with the primal allure of wood-fired cooking. The intimate space glows with warmth &mdash; the kind of neighborhood gem that makes you feel like a regular on your first visit.
+      </p>
+      <div class="card-highlights">
+        <h4>Must-Try Dishes</h4>
+        <ul class="dish-list">
+          <li>Whole Grilled Fish</li>
+          <li>Wood-Fired Oysters</li>
+          <li>Grilled Octopus</li>
+          <li>Seasonal Crudo</li>
+          <li>House-Made Pasta</li>
+        </ul>
+      </div>
+      <div class="card-details">
+        <div class="detail-item">
+          <span class="detail-label">Price</span>
+          <span class="detail-value">$35&ndash;55 per person</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Neighborhood</span>
+          <span class="detail-value">Grand Lake, Oakland</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Hours</span>
+          <span class="detail-value">Wed&ndash;Sun 5p&ndash;9:30p<br>Mon&ndash;Tue Closed</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Website</span>
+          <span class="detail-value"><a href="https://www.sirene-oak.com" target="_blank">sirene-oak.com</a></span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 7. SKATES ON THE BAY -->
+  <article class="restaurant-card card-skates">
+    <div class="card-visual">
+      <div class="card-visual-bg"></div>
+      <div class="card-visual-overlay"></div>
+      <span class="card-number">07</span>
+      <div class="card-visual-content">
+        <span class="card-cuisine-tag">Waterfront Seafood &middot; Berkeley Marina</span>
+        <h2 class="card-visual-name">Skates on the Bay</h2>
+        <p class="card-visual-location">100 Seawall Drive, Berkeley</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-rating">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        <span class="rating-text">4.5 &middot; OpenTable Diners&rsquo; Choice</span>
+      </div>
+      <p class="card-description">
+        Open since 1984, Skates offers perhaps the most breathtaking dining view in the East Bay &mdash; panoramic windows on three sides frame the Golden Gate Bridge, San Francisco skyline, and sunset over the water. Come for the view, stay for the Dungeness crab.
+      </p>
+      <div class="card-highlights">
+        <h4>Must-Try Dishes</h4>
+        <ul class="dish-list">
+          <li>Dungeness Crab Linguini</li>
+          <li>Herb Crusted Prime Rib</li>
+          <li>Clam Chowder</li>
+          <li>Kung Pao Calamari</li>
+          <li>Key Lime Pie</li>
+        </ul>
+      </div>
+      <div class="card-details">
+        <div class="detail-item">
+          <span class="detail-label">Price</span>
+          <span class="detail-value">$40&ndash;75 per person</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Phone</span>
+          <span class="detail-value"><a href="tel:+15105491900">(510) 549-1900</a></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Hours</span>
+          <span class="detail-value">Daily 11:30a&ndash;9p<br>Happy Hour Mon&ndash;Thu 3p&ndash;5p</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Website</span>
+          <span class="detail-value"><a href="https://www.skatesonthebay.com" target="_blank">skatesonthebay.com</a></span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <p class="footer-quote">&ldquo;One cannot think well, love well, sleep well, if one has not dined well.&rdquo;</p>
+  <p class="footer-attribution">&mdash; Virginia Woolf</p>
+</footer>
+
+</body>
+</html>
