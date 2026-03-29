@@ -1,0 +1,380 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #121213;
+    color: #fff;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+#app {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 10px 0 6px;
+    border-bottom: 1px solid #3a3a3c;
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+header h1 {
+    font-size: 28px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #b485d1;
+    margin-top: 2px;
+}
+
+/* Message Bar */
+#message-bar {
+    width: 100%;
+    text-align: center;
+    padding: 10px 16px;
+    margin: 4px 0;
+    background: #2a1a3a;
+    border-radius: 8px;
+    border: 1px solid #b485d1;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#message-bar.hidden {
+    display: none;
+}
+
+#message-text {
+    font-size: 15px;
+    line-height: 1.4;
+    color: #e8d5f5;
+}
+
+/* Photo Reveal */
+#photo-reveal {
+    width: 100%;
+    max-width: 280px;
+    margin: 4px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 3px solid #b485d1;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#photo-reveal.hidden {
+    display: none;
+}
+
+#photo-reveal img {
+    width: 100%;
+    display: block;
+}
+
+/* Board */
+#board {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 8px 0;
+}
+
+.row {
+    display: flex;
+    gap: 5px;
+}
+
+.tile {
+    width: 58px;
+    height: 58px;
+    border: 2px solid #3a3a3c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: transform 0.1s ease;
+    user-select: none;
+}
+
+.tile.filled {
+    border-color: #565758;
+    animation: pop 0.1s ease;
+}
+
+.tile.reveal {
+    animation: flip 0.5s ease forwards;
+}
+
+.tile.correct {
+    background: #6aaa64;
+    border-color: #6aaa64;
+}
+
+.tile.present {
+    background: #c9b458;
+    border-color: #c9b458;
+}
+
+.tile.absent {
+    background: #3a3a3c;
+    border-color: #3a3a3c;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+
+@keyframes flip {
+    0% { transform: rotateX(0deg); }
+    50% { transform: rotateX(90deg); }
+    100% { transform: rotateX(0deg); }
+}
+
+/* Acrostic Bar */
+#acrostic-bar {
+    width: 100%;
+    text-align: center;
+    padding: 6px;
+    margin: 2px 0;
+}
+
+#acrostic-bar.hidden {
+    display: none;
+}
+
+#acrostic-words {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.acrostic-word {
+    color: #3a3a3c;
+    transition: color 0.5s ease;
+}
+
+.acrostic-word.revealed {
+    color: #6aaa64;
+}
+
+.acrostic-word .first-letter {
+    font-size: 18px;
+}
+
+/* Keyboard */
+#keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 500px;
+    margin-top: auto;
+    padding-bottom: 8px;
+}
+
+.kb-row {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+
+.key {
+    height: 52px;
+    min-width: 32px;
+    padding: 0 6px;
+    border: none;
+    border-radius: 4px;
+    background: #818384;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.key.wide {
+    min-width: 56px;
+    font-size: 12px;
+}
+
+.key.correct {
+    background: #6aaa64;
+}
+
+.key.present {
+    background: #c9b458;
+}
+
+.key.absent {
+    background: #3a3a3c;
+}
+
+/* Celebration Overlay */
+#celebration-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+#celebration-overlay.hidden {
+    display: none;
+    opacity: 0;
+}
+
+#celebration-overlay.visible {
+    opacity: 1;
+}
+
+#celebration-content {
+    text-align: center;
+    padding: 30px 20px;
+    max-width: 400px;
+    z-index: 101;
+}
+
+#celeb-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #b485d1;
+}
+
+#celeb-acrostic {
+    margin: 20px 0;
+    font-size: 20px;
+    line-height: 1.8;
+}
+
+#celeb-acrostic .acrostic-line {
+    display: block;
+}
+
+#celeb-acrostic .acrostic-line .highlight {
+    color: #6aaa64;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+#celeb-photos {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+#celeb-photos img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #b485d1;
+}
+
+#celeb-message {
+    font-size: 18px;
+    color: #e8d5f5;
+    margin: 20px 0;
+    line-height: 1.5;
+}
+
+#play-again-btn {
+    background: #b485d1;
+    color: #fff;
+    border: none;
+    padding: 14px 36px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#play-again-btn:hover {
+    background: #c99de0;
+}
+
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 102;
+}
+
+/* Shake animation for invalid words */
+.shake {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+/* Toast for invalid word */
+#toast {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #121213;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    z-index: 200;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+#toast.show {
+    opacity: 1;
+}

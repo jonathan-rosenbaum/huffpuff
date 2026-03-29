@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sabridle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Sabridle</h1>
+            <p class="subtitle">Happy 56th, Sabrina!</p>
+        </header>
+
+        <div id="message-bar" class="hidden">
+            <p id="message-text"></p>
+        </div>
+
+        <div id="photo-reveal" class="hidden">
+            <img id="photo-img" src="" alt="Memory">
+        </div>
+
+        <div id="board"></div>
+
+        <div id="acrostic-bar" class="hidden">
+            <div id="acrostic-words"></div>
+        </div>
+
+        <div id="keyboard"></div>
+    </div>
+
+    <div id="celebration-overlay" class="hidden">
+        <div id="celebration-content">
+            <h2 id="celeb-title"></h2>
+            <div id="celeb-acrostic"></div>
+            <div id="celeb-photos"></div>
+            <p id="celeb-message"></p>
+            <button id="play-again-btn">Play Again</button>
+        </div>
+        <canvas id="confetti-canvas"></canvas>
+    </div>
+
+    <script src="words.js"></script>
+    <script src="messages.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
