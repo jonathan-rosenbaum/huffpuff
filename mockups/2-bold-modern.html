@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Sabrina Is — Bold Modern</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a1a1a;
+    font-family: -apple-system, system-ui, sans-serif;
+    padding: 20px;
+  }
+  .phone {
+    width: 390px;
+    height: 844px;
+    border-radius: 48px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    background: #0E0E12;
+    display: flex;
+    flex-direction: column;
+    padding: 60px 32px 32px;
+    color: #FAFAFA;
+    position: relative;
+  }
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 60%;
+    background: radial-gradient(ellipse at top right, rgba(255,107,157,0.18), transparent 60%);
+    pointer-events: none;
+  }
+  .status {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FAFAFA;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 1;
+  }
+  .brand {
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 700;
+    color: #FF6B9D;
+  }
+  .streak {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #888;
+    font-weight: 600;
+  }
+  .streak strong { color: #FAFAFA; }
+  .affirmation {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+  .affirmation h1 {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -2px;
+  }
+  .affirmation h1 em {
+    font-style: normal;
+    color: #FF6B9D;
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+    font-size: 13px;
+    color: #888;
+    letter-spacing: 1px;
+  }
+  .tag {
+    background: rgba(255,107,157,0.15);
+    color: #FF6B9D;
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .divider {
+    height: 1px;
+    background: #252530;
+    margin: 32px 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+  .btn {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #888;
+    text-transform: uppercase;
+  }
+  .btn.primary { color: #FAFAFA; }
+  .nav {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 24px;
+    margin-top: 24px;
+    border-top: 1px solid #1f1f26;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #555;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+  }
+  .nav span.active { color: #FAFAFA; }
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>●●●●</span></div>
+    <div class="header">
+      <div class="brand">SABRINA IS · 04.19</div>
+      <div class="streak">🔥 <strong>12</strong> DAYS</div>
+    </div>
+    <div class="affirmation">
+      <h1>She is<br/>the <em>answer</em><br/>she's been<br/>looking for.</h1>
+      <div class="meta">
+        <span class="tag">WORTH</span>
+        <span>generated for your morning</span>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="actions">
+      <span class="btn">♡ SAVE</span>
+      <span class="btn">↻ REGENERATE</span>
+      <span class="btn primary">REFLECT →</span>
+    </div>
+    <div class="nav">
+      <span class="active">Today</span>
+      <span>Reflect</span>
+      <span>Library</span>
+      <span>She</span>
+    </div>
+  </div>
+</body>
+</html>

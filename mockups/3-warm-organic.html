@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Sabrina Is — Warm Organic</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d4c3a8;
+    font-family: Georgia, serif;
+    padding: 20px;
+  }
+  .phone {
+    width: 390px;
+    height: 844px;
+    border-radius: 48px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(74,56,40,0.35);
+    background: #F5EBDD;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(201,154,106,0.12) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(160,130,110,0.10) 0%, transparent 40%);
+    display: flex;
+    flex-direction: column;
+    padding: 60px 36px 40px;
+    color: #4A3828;
+    position: relative;
+  }
+  .status {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 600;
+    color: #8A6F52;
+    margin-bottom: 32px;
+  }
+  .brand {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 15px;
+    color: #A0826D;
+    text-align: center;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+  .date {
+    text-align: center;
+    font-size: 13px;
+    color: #B89A78;
+    margin-bottom: 80px;
+  }
+  .affirmation {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .affirmation h1 {
+    font-family: 'Caveat', 'Bradley Hand', 'Marker Felt', cursive;
+    font-size: 44px;
+    font-weight: 500;
+    line-height: 1.35;
+    transform: rotate(-1.5deg);
+    color: #4A3828;
+  }
+  .flourish {
+    margin-top: 56px;
+    font-size: 28px;
+    color: #C99A6A;
+  }
+  .cta {
+    margin-top: 12px;
+    font-size: 15px;
+    color: #8A6F52;
+    font-style: italic;
+  }
+  .petal {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.35;
+    color: #C99A6A;
+  }
+  .petal.tl { top: 120px; left: 32px; transform: rotate(-20deg); }
+  .petal.tr { top: 140px; right: 48px; transform: rotate(25deg); }
+  .petal.br { bottom: 180px; right: 36px; transform: rotate(-15deg); }
+  .nav {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 24px;
+    border-top: 1px dashed #C99A6A;
+    font-size: 13px;
+    color: #A0826D;
+    font-style: italic;
+  }
+  .nav span.active {
+    color: #4A3828;
+    font-weight: 600;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>●●●●</span></div>
+    <span class="petal tl">✿</span>
+    <span class="petal tr">❀</span>
+    <span class="petal br">✿</span>
+    <div class="brand">— Sabrina is —</div>
+    <div class="date">Sunday, April 19</div>
+    <div class="affirmation">
+      <h1>soft and strong,<br/>quiet and bright,<br/>exactly as she is.</h1>
+      <div class="flourish">✿</div>
+      <div class="cta">today's little truth</div>
+    </div>
+    <div class="nav">
+      <span class="active">today</span>
+      <span>journal</span>
+      <span>garden</span>
+      <span>she</span>
+    </div>
+  </div>
+</body>
+</html>
