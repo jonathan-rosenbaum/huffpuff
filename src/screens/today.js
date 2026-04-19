@@ -39,9 +39,9 @@ export function renderToday() {
     </header>
     <div class="date">${dateLabel}</div>
     <div class="affirmation">
-      <h1 id="aff">${escapeHtml(personalize(aff.text, profile.name))}</h1>
+      <h1 id="aff" class="tappable">${escapeHtml(personalize(aff.text, profile.name))}</h1>
       <div class="dots">\u2022 \u2022 \u2022</div>
-      <div class="sub-cta">tap save, or reflect below</div>
+      <div class="sub-cta">tap to read more</div>
     </div>
     <div class="actions">
       <button class="icon-btn ${isSaved ? 'saved' : ''}" id="save">${isSaved ? '\u2665 saved' : '\u2661 save'}</button>
@@ -77,6 +77,7 @@ export function renderToday() {
   });
 
   el.querySelector('#reflect').addEventListener('click', () => navigate('/reflect'));
+  el.querySelector('#aff').addEventListener('click', () => navigate('/affirmation/' + aff.id));
 
   return el;
 }

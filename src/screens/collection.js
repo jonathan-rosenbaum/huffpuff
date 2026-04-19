@@ -1,6 +1,6 @@
 import { store } from '../storage.js';
 import { personalize } from '../affirmations.js';
-import { toast } from '../app.js';
+import { toast, navigate } from '../app.js';
 
 export function renderCollection() {
   const el = document.createElement('section');
@@ -48,6 +48,7 @@ export function renderCollection() {
         toast('removed');
         el.replaceWith(renderCollection());
       });
+      card.addEventListener('click', () => navigate('/affirmation/' + s.id));
       list.appendChild(card);
     });
     el.appendChild(list);

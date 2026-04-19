@@ -1,5 +1,5 @@
 // Minimal service worker — cache-first for app shell, network fallback.
-const VERSION = 'sabrina-v1';
+const VERSION = 'sabrina-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const ASSETS = [
   './src/app.js',
   './src/styles.css',
   './src/storage.js',
+  './src/crypto.js',
   './src/notifications.js',
   './src/affirmations.js',
   './src/screens/onboarding.js',
@@ -15,6 +16,8 @@ const ASSETS = [
   './src/screens/reflect.js',
   './src/screens/collection.js',
   './src/screens/settings.js',
+  './src/screens/detail.js',
+  './src/screens/lock.js',
 ];
 
 self.addEventListener('install', (e) => {

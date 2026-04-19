@@ -124,3 +124,114 @@ function hash(str) {
   for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) | 0;
   return Math.abs(h);
 }
+
+// ---------------------------------------------------------------------------
+// BUBBLES — per-affirmation drill-down readings.
+// Keyed by affirmation id. Each bubble: { label, short, long? }
+// `short` is ~1–2 sentences. `long` is optional; when present, detail screen
+// shows a "read more" to expand. Seed content for a subset — remaining
+// affirmations surface the hero on the detail screen without bubbles.
+// ---------------------------------------------------------------------------
+export const BUBBLES = {
+  w01: [ // {name} is radiant, rooted, & enough.
+    {
+      label: 'Radiant',
+      short: 'Your light isn\u2019t something you summon. It\u2019s already on.',
+      long: 'We spend so much energy trying to earn the right to shine — waiting for the accomplishment, the compliment, the permission. But radiance isn\u2019t a reward; it\u2019s a condition. You were lit before anyone told you so. The work isn\u2019t to become brighter. The work is to stop apologizing for the light that\u2019s already there.',
+    },
+    {
+      label: 'Rooted',
+      short: 'You can be moved without being uprooted.',
+      long: 'Roots aren\u2019t what keep you still. They\u2019re what keep you yours. When the weather changes — and it always changes — rootedness is the quiet sense that you know who you are beneath the noise. It doesn\u2019t mean you\u2019re never shaken. It means the shaking doesn\u2019t decide who you are.',
+    },
+    {
+      label: 'Enough',
+      short: 'Enough is not a number. It\u2019s a place you stand.',
+      long: 'Enough is not something you reach by doing more. You do not become enough. You remember that you were. Enough is the permission to stop running. Enough is the acknowledgement that the version of you reading this, right now, with all the undone things, is not a draft. She is already the real thing.',
+    },
+  ],
+  w05: [ // {name} is not too much. She is exactly enough.
+    {
+      label: 'Too much',
+      short: '"Too much" is often code for "too much for someone who wasn\u2019t ready for you."',
+      long: 'There is a particular ache of shrinking to fit rooms that couldn\u2019t hold you. It is not a moral failing to be larger than a small container. You are not responsible for calibrating yourself to the discomfort of those who mistook their limits for yours.',
+    },
+    {
+      label: 'Exactly',
+      short: 'Not more than. Not less than. This, right here, is the measure.',
+    },
+  ],
+  c01: [ // She breathes in. She breathes out. She is here.
+    {
+      label: 'The breath',
+      short: 'Your breath is the one thing that is always now.',
+      long: 'You cannot breathe yesterday\u2019s breath. You cannot breathe tomorrow\u2019s. The breath is a door that only opens in this moment, and it opens again, and again, and again — every few seconds, for free, as long as you\u2019re alive. When the mind runs off, the breath is how you find your way back to the body that is actually here.',
+    },
+    {
+      label: 'Here',
+      short: 'Here is always a place you\u2019re allowed to arrive at.',
+      long: 'Being here isn\u2019t a skill — it\u2019s a choice you keep making. You can be here in a traffic jam. You can be here washing a dish. You can be here inside a grief. "Here" is not where life is pleasant. "Here" is where life is actually happening.',
+    },
+  ],
+  c02: [ // {name} is the calm eye of her own storm.
+    {
+      label: 'The eye',
+      short: 'The storm is loud. You are not the storm.',
+      long: 'Thoughts, feelings, and the day\u2019s emergencies are the weather. They pass across you. You are the sky they happen in. This distinction — between what is passing through and what is doing the witnessing — is the quiet superpower of a calm mind. The storm is real. So is the eye.',
+    },
+    {
+      label: 'Your own',
+      short: 'You don\u2019t have to calm the world. Just return to the calm in you.',
+    },
+  ],
+  f01: [ // {name} says it the way she means it.
+    {
+      label: 'Saying it',
+      short: 'Saying it plainly is a quiet, radical act.',
+      long: 'We soften our asks, question our own sentences, pad our needs with apologies. Meanwhile, the people who say what they want — kindly, directly — get listened to. Clarity is not unkind. In fact, it\u2019s one of the kindest things you can offer: it lets the other person actually meet you where you are.',
+    },
+    {
+      label: 'Meaning it',
+      short: 'A soft voice can still mean every word.',
+    },
+  ],
+  l01: [ // {name} is softly, fiercely loved.
+    {
+      label: 'Softly',
+      short: 'Soft is not weak. Soft is a choice you can only make from strength.',
+      long: 'There is a version of love that is all edges and performance. And there is another kind — patient, attentive, unshowy — that only grows in people who are not afraid of tenderness. You are allowed to be loved that way. You are allowed to love yourself that way.',
+    },
+    {
+      label: 'Fiercely',
+      short: 'Fierce love shows up. On the hard days, especially.',
+      long: 'The fierce part of love is not dramatic. It\u2019s the quiet decision to keep choosing someone — including yourself — when the easy version of the story would be to turn away. Fierce love is the refusal to abandon.',
+    },
+  ],
+  r01: [ // {name} is allowed to rest without earning it.
+    {
+      label: 'Allowed',
+      short: 'Rest is not a reward for productivity. It\u2019s a condition of being alive.',
+      long: 'The body did not sign up for the arrangement where we earn the right to lie down. Trees do not earn winter. The tide does not earn the low. Rest is a rhythm, not a wage. You are permitted to stop before you are destroyed by not stopping.',
+    },
+    {
+      label: 'Earning it',
+      short: 'If you only rest after finishing, you\u2019ll never rest.',
+    },
+  ],
+  g01: [ // {name} is becoming slowly, then all at once.
+    {
+      label: 'Slowly',
+      short: 'The roots grow in the dark for a long time before anyone sees the flower.',
+      long: 'Most of the important changes in a life happen at a pace so gentle you barely notice them. One more honest conversation. One more boundary kept. One more morning where you believed the kind thing about yourself a little more than yesterday. This is not stalling. This is how becoming works.',
+    },
+    {
+      label: 'All at once',
+      short: 'And then one day you notice: you\u2019re already her.',
+      long: 'There is always a morning where you catch yourself being the person you used to hope to become. You won\u2019t always see it coming. But the small, quiet work was building to it the whole time.',
+    },
+  ],
+};
+
+export function getBubbles(id) {
+  return BUBBLES[id] || [];
+}
