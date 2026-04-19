@@ -1,0 +1,27 @@
+{
+  "name": "Sabrina Is",
+  "short_name": "Sabrina Is",
+  "description": "A calm, personalized affirmation practice.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FDE5EC",
+  "theme_color": "#FDE5EC",
+  "lang": "en",
+  "categories": ["lifestyle", "health", "productivity"],
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE5EC"/>
+      <stop offset="35%" stop-color="#F4DDEB"/>
+      <stop offset="65%" stop-color="#E8D5F2"/>
+      <stop offset="100%" stop-color="#C9D8F0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <text x="256" y="320" text-anchor="middle"
+        font-family="Playfair Display, Georgia, serif"
+        font-style="italic" font-weight="400"
+        font-size="220" fill="#3A2D4A"
+        letter-spacing="-6">S</text>
+  <circle cx="256" cy="380" r="6" fill="#D07A9C"/>
+</svg>

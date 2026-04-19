@@ -1,99 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Balloon Blowout</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background: #1a1a2e;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-            touch-action: none;
-        }
-        #game-container {
-            position: relative;
-        }
-        canvas {
-            display: block;
-        }
-        /* Debug Panel */
-        #debug-panel {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.85);
-            color: #fff;
-            font-family: monospace;
-            font-size: 11px;
-            border-radius: 8px;
-            z-index: 1000;
-            min-width: 200px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        .debug-header {
-            background: #444;
-            padding: 8px 12px;
-            cursor: pointer;
-            border-radius: 8px 8px 0 0;
-            font-weight: bold;
-            text-align: center;
-        }
-        .debug-header:hover {
-            background: #555;
-        }
-        .debug-content {
-            padding: 10px;
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-        .debug-content.collapsed {
-            display: none;
-        }
-        .debug-row {
-            margin-bottom: 8px;
-        }
-        .debug-row label {
-            display: block;
-            margin-bottom: 2px;
-            color: #aaa;
-        }
-        .debug-row input[type="range"] {
-            width: 120px;
-            vertical-align: middle;
-        }
-        .debug-row span {
-            display: inline-block;
-            width: 40px;
-            text-align: right;
-            color: #0f0;
-        }
-        #dbg-reset {
-            width: 100%;
-            margin-top: 10px;
-            padding: 8px;
-            background: #c00;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        #dbg-reset:hover {
-            background: #e00;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+<meta name="theme-color" content="#FDE5EC" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Sabrina Is" />
+<meta name="description" content="A calm, personalized affirmation practice. She is enough." />
+<title>Sabrina Is</title>
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="src/styles.css" />
 </head>
 <body>
-    <div id="game-container"></div>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
-    <script type="module" src="src/main.js"></script>
+<main id="app" aria-live="polite"></main>
+<div class="toast" id="toast" aria-hidden="true"></div>
+<script type="module" src="src/app.js"></script>
 </body>
 </html>
