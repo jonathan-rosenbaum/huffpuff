@@ -2,78 +2,538 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Sabrina Is — Aesthetic Previews</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: #f4f1ea;
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: #111;
     font-family: -apple-system, system-ui, sans-serif;
-    padding: 48px 24px;
-    color: #222;
+    color: #eee;
+    touch-action: pan-y;
   }
-  h1 {
+  .viewer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+  }
+  .topbar h1 {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .topbar .count {
+    font-size: 13px;
+    opacity: 0.6;
+  }
+  .stage {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at center, #222 0%, #0a0a0a 100%);
+  }
+  .track {
+    display: flex;
+    width: 300%;
+    height: 100%;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .slide {
+    width: 33.3333%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .phone {
+    width: 390px;
+    max-width: 100%;
+    aspect-ratio: 390 / 844;
+    max-height: 100%;
+    border-radius: 44px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 6px #1c1c1c, 0 0 0 7px #333;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .status {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 14px 28px 0;
+  }
+  .nav-dots-bar {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 14px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ===== SLIDE 1 — Calm Minimal ===== */
+  .s1 .phone {
+    background: linear-gradient(165deg, #FDE5EC 0%, #F4DDEB 35%, #E8D5F2 65%, #C9D8F0 100%);
+    color: #3A2D4A;
+    padding: 0 32px 28px;
+  }
+  .s1 .status { color: #3A2D4A; opacity: 0.7; }
+  .s1 .brand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0.55;
     text-align: center;
-    font-weight: 300;
-    font-size: 32px;
-    margin-bottom: 8px;
+    margin-top: 32px;
+  }
+  .s1 .date {
+    text-align: center;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    font-style: italic;
+    opacity: 0.55;
+    margin-top: 8px;
+    margin-bottom: 60px;
+  }
+  .s1 .affirmation {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .s1 .affirmation h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 42px;
+    line-height: 1.25;
     letter-spacing: -0.5px;
   }
-  .sub {
-    text-align: center;
-    color: #777;
-    margin-bottom: 48px;
-    font-size: 15px;
-  }
-  .grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  .card {
-    text-align: center;
-  }
-  .card iframe {
-    width: 420px;
-    height: 880px;
-    border: none;
-    border-radius: 52px;
-    background: white;
-  }
-  .card h2 {
+  .s1 .dots { margin-top: 40px; font-size: 13px; opacity: 0.4; letter-spacing: 8px; }
+  .s1 .cta {
     margin-top: 20px;
-    font-weight: 500;
-    font-size: 18px;
-  }
-  .card p {
-    color: #888;
+    font-family: Georgia, serif;
     font-size: 13px;
-    margin-top: 4px;
+    font-style: italic;
+    opacity: 0.6;
+  }
+  .s1 .nav-dots-bar {
+    border-top: 1px solid rgba(58,45,74,0.12);
+    color: rgba(58,45,74,0.55);
+  }
+  .s1 .nav-dots-bar .active { color: #3A2D4A; font-weight: 600; }
+
+  /* ===== SLIDE 2 — Bold & Modern ===== */
+  .s2 .phone {
+    background: #0E0E12;
+    color: #FAFAFA;
+    padding: 0 28px 24px;
+  }
+  .s2 .phone::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 55%;
+    background: radial-gradient(ellipse at top right, rgba(255,107,157,0.22), transparent 60%);
+    pointer-events: none;
+  }
+  .s2 .status { color: #FAFAFA; }
+  .s2 .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 36px;
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 1;
+  }
+  .s2 .brand {
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 700;
+    color: #FF6B9D;
+  }
+  .s2 .streak {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #888;
+    font-weight: 600;
+  }
+  .s2 .streak strong { color: #FAFAFA; }
+  .s2 .affirmation { flex: 1; position: relative; z-index: 1; }
+  .s2 .affirmation h1 {
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -2px;
+  }
+  .s2 .affirmation h1 em { font-style: normal; color: #FF6B9D; }
+  .s2 .meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    font-size: 12px;
+    color: #888;
+  }
+  .s2 .tag {
+    background: rgba(255,107,157,0.15);
+    color: #FF6B9D;
+    padding: 5px 11px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .s2 .divider {
+    height: 1px;
+    background: #252530;
+    margin: 24px 0 18px;
+  }
+  .s2 .actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  .s2 .btn {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #888;
+    text-transform: uppercase;
+  }
+  .s2 .btn.primary { color: #FAFAFA; }
+  .s2 .nav-dots-bar {
+    border-top: 1px solid #1f1f26;
+    color: #555;
+    font-weight: 600;
+    margin-top: 18px;
+  }
+  .s2 .nav-dots-bar .active { color: #FAFAFA; }
+
+  /* ===== SLIDE 3 — Warm & Organic ===== */
+  .s3 .phone {
+    background: #F5EBDD;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(201,154,106,0.14) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(160,130,110,0.12) 0%, transparent 40%);
+    color: #4A3828;
+    padding: 0 32px 28px;
+  }
+  .s3 .status { color: #8A6F52; }
+  .s3 .brand {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #A0826D;
+    text-align: center;
+    margin-top: 32px;
+    letter-spacing: 2px;
+  }
+  .s3 .date {
+    text-align: center;
+    font-size: 12px;
+    color: #B89A78;
+    font-family: Georgia, serif;
+    margin-top: 6px;
+    margin-bottom: 56px;
+  }
+  .s3 .affirmation {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .s3 .affirmation h1 {
+    font-family: 'Caveat', 'Bradley Hand', 'Marker Felt', cursive;
+    font-size: 42px;
+    font-weight: 500;
+    line-height: 1.35;
+    transform: rotate(-1.5deg);
+    color: #4A3828;
+  }
+  .s3 .flourish { margin-top: 48px; font-size: 26px; color: #C99A6A; }
+  .s3 .cta {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #8A6F52;
+    font-style: italic;
+    font-family: Georgia, serif;
+  }
+  .s3 .petal {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.35;
+    color: #C99A6A;
+  }
+  .s3 .petal.tl { top: 100px; left: 24px; transform: rotate(-20deg); }
+  .s3 .petal.tr { top: 120px; right: 36px; transform: rotate(25deg); }
+  .s3 .petal.br { bottom: 140px; right: 28px; transform: rotate(-15deg); }
+  .s3 .nav-dots-bar {
+    border-top: 1px dashed #C99A6A;
+    color: #A0826D;
+    font-style: italic;
+    font-family: Georgia, serif;
+    text-transform: lowercase;
+  }
+  .s3 .nav-dots-bar .active { color: #4A3828; font-weight: 600; }
+
+  /* ===== Bottom controls ===== */
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 24px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    gap: 16px;
+  }
+  .arrow {
+    background: #222;
+    border: 1px solid #333;
+    color: #eee;
+    width: 44px;
+    height: 44px;
+    border-radius: 22px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  .arrow:hover { background: #333; }
+  .arrow:disabled { opacity: 0.3; cursor: not-allowed; }
+  .center {
+    flex: 1;
+    text-align: center;
+  }
+  .label {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .sublabel {
+    font-size: 12px;
+    opacity: 0.55;
+  }
+  .indicator {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: #444;
+    transition: all 0.2s;
+  }
+  .dot.active {
+    background: #fff;
+    width: 20px;
+  }
+  .pick {
+    background: linear-gradient(135deg, #FF6B9D, #c04e7a);
+    color: #fff;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 22px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    white-space: nowrap;
   }
 </style>
 </head>
 <body>
-  <h1>Sabrina Is — pick your aesthetic</h1>
-  <p class="sub">Three directions. Open each, then tell me your pick.</p>
-  <div class="grid">
-    <div class="card">
-      <iframe src="1-calm-minimal.html"></iframe>
-      <h2>1 · Calm Minimal</h2>
-      <p>Soft gradients, serif italics, airy</p>
-    </div>
-    <div class="card">
-      <iframe src="2-bold-modern.html"></iframe>
-      <h2>2 · Bold &amp; Modern</h2>
-      <p>Dark, confident, high-contrast</p>
-    </div>
-    <div class="card">
-      <iframe src="3-warm-organic.html"></iframe>
-      <h2>3 · Warm &amp; Organic</h2>
-      <p>Handwritten, paper, journal-cozy</p>
+<div class="viewer">
+  <div class="topbar">
+    <h1>Sabrina Is — aesthetic previews</h1>
+    <div class="count"><span id="idx">1</span> / 3</div>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="track" id="track">
+
+      <!-- SLIDE 1 -->
+      <div class="slide s1">
+        <div class="phone">
+          <div class="status"><span>9:41</span><span>●●●●</span></div>
+          <div class="brand">Sabrina Is</div>
+          <div class="date">Sunday, April 19</div>
+          <div class="affirmation">
+            <h1>radiant,<br/>rooted,<br/>&amp; enough.</h1>
+            <div class="dots">• • •</div>
+            <div class="cta">tap for today's reflection</div>
+          </div>
+          <div class="nav-dots-bar">
+            <span class="active">Today</span>
+            <span>Reflect</span>
+            <span>Collection</span>
+            <span>She</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 -->
+      <div class="slide s2">
+        <div class="phone">
+          <div class="status"><span>9:41</span><span>●●●●</span></div>
+          <div class="header">
+            <div class="brand">SABRINA IS · 04.19</div>
+            <div class="streak">🔥 <strong>12</strong> DAYS</div>
+          </div>
+          <div class="affirmation">
+            <h1>She is<br/>the <em>answer</em><br/>she's been<br/>looking for.</h1>
+            <div class="meta">
+              <span class="tag">WORTH</span>
+              <span>for your morning</span>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="actions">
+            <span class="btn">♡ SAVE</span>
+            <span class="btn">↻ REGEN</span>
+            <span class="btn primary">REFLECT →</span>
+          </div>
+          <div class="nav-dots-bar">
+            <span class="active">Today</span>
+            <span>Reflect</span>
+            <span>Library</span>
+            <span>She</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 -->
+      <div class="slide s3">
+        <div class="phone">
+          <div class="status"><span>9:41</span><span>●●●●</span></div>
+          <span class="petal tl">✿</span>
+          <span class="petal tr">❀</span>
+          <span class="petal br">✿</span>
+          <div class="brand">— Sabrina is —</div>
+          <div class="date">Sunday, April 19</div>
+          <div class="affirmation">
+            <h1>soft and strong,<br/>quiet and bright,<br/>exactly as she is.</h1>
+            <div class="flourish">✿</div>
+            <div class="cta">today's little truth</div>
+          </div>
+          <div class="nav-dots-bar">
+            <span class="active">today</span>
+            <span>journal</span>
+            <span>garden</span>
+            <span>she</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
+
+  <div class="controls">
+    <button class="arrow" id="prev" aria-label="Previous">‹</button>
+    <div class="center">
+      <div class="label" id="label">1 · Calm Minimal</div>
+      <div class="sublabel" id="sublabel">Soft gradients, serif italics</div>
+      <div class="indicator">
+        <div class="dot active" data-i="0"></div>
+        <div class="dot" data-i="1"></div>
+        <div class="dot" data-i="2"></div>
+      </div>
+    </div>
+    <button class="pick" id="pick">Pick #1</button>
+  </div>
+</div>
+
+<script>
+  const slides = [
+    { label: '1 · Calm Minimal',   sub: 'Soft gradients, serif italics' },
+    { label: '2 · Bold & Modern',  sub: 'Dark, confident, high-contrast' },
+    { label: '3 · Warm & Organic', sub: 'Handwritten, paper, journal-cozy' },
+  ];
+  let i = 0;
+  const track = document.getElementById('track');
+  const idxEl = document.getElementById('idx');
+  const labelEl = document.getElementById('label');
+  const subEl = document.getElementById('sublabel');
+  const prevBtn = document.getElementById('prev');
+  const pickBtn = document.getElementById('pick');
+  const dots = document.querySelectorAll('.dot');
+
+  function render() {
+    track.style.transform = `translateX(-${i * 33.3333}%)`;
+    idxEl.textContent = i + 1;
+    labelEl.textContent = slides[i].label;
+    subEl.textContent = slides[i].sub;
+    pickBtn.textContent = `Pick #${i + 1}`;
+    dots.forEach((d, n) => d.classList.toggle('active', n === i));
+    prevBtn.disabled = i === 0;
+  }
+  function go(delta) { i = Math.max(0, Math.min(2, i + delta)); render(); }
+
+  prevBtn.addEventListener('click', () => go(-1));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') go(-1);
+    if (e.key === 'ArrowRight') go(1);
+  });
+  dots.forEach(d => d.addEventListener('click', () => {
+    i = parseInt(d.dataset.i, 10); render();
+  }));
+  pickBtn.addEventListener('click', () => {
+    pickBtn.textContent = `✓ Tell Claude: "#${i + 1}"`;
+    setTimeout(() => pickBtn.textContent = `Pick #${i + 1}`, 2400);
+  });
+
+  // Swipe support
+  let startX = null;
+  const stage = document.getElementById('stage');
+  stage.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', (e) => {
+    if (startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+    startX = null;
+  });
+
+  // Replace the pick button with a next button when on slide 1 or 2
+  // (it's always "Pick" — arrow on left handles back; tap dot or swipe for forward)
+  // Add a small next affordance:
+  const nextHint = document.createElement('button');
+  nextHint.className = 'arrow';
+  nextHint.textContent = '›';
+  nextHint.setAttribute('aria-label', 'Next');
+  nextHint.addEventListener('click', () => go(1));
+  document.querySelector('.controls').insertBefore(nextHint, pickBtn);
+
+  render();
+</script>
 </body>
 </html>
