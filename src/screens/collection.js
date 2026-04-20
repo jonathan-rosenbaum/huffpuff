@@ -1,5 +1,5 @@
 import { store } from '../storage.js';
-import { personalize } from '../affirmations.js';
+import { byId } from '../affirmations.js';
 import { toast, navigate } from '../app.js';
 
 export function renderCollection() {
@@ -37,8 +37,11 @@ export function renderCollection() {
       const card = document.createElement('div');
       card.className = 'card';
       const date = new Date(s.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+      const full = byId(s.id);
+      const author = full && full.source && full.source.author ? full.source.author : '';
       card.innerHTML = `
-        <div class="text">${escapeHtml(personalize(s.text, profile.name))}</div>
+        <div class="text">${escapeHtml(s.text)}</div>
+        ${author ? `<div class="card-attr">\u2014 ${escapeHtml(author)}</div>` : ''}
         <div class="meta"><span>${date}</span><span id="rm">remove</span></div>
       `;
       card.querySelector('#rm').addEventListener('click', (e) => {

@@ -1,4 +1,5 @@
 import { store, tickStreak, initStorage, isLocked, hasVault } from './storage.js';
+import { loadAffirmations } from './affirmations.js';
 import { reschedule } from './notifications.js';
 import { renderOnboarding } from './screens/onboarding.js';
 import { renderToday }      from './screens/today.js';
@@ -87,7 +88,7 @@ export function render() {
 
 window.addEventListener('hashchange', render);
 window.addEventListener('DOMContentLoaded', async () => {
-  await initStorage();
+  await Promise.all([ initStorage(), loadAffirmations() ]);
   if (!isLocked() && store.profile.onboarded) tickStreak();
   render();
   reschedule();

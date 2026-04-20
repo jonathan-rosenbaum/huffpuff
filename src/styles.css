@@ -121,10 +121,32 @@ h1, h2, h3 {
   font-family: 'Playfair Display', Georgia, serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(34px, 9vw, 44px);
-  line-height: 1.25;
-  letter-spacing: -0.5px;
+  font-size: clamp(26px, 7.5vw, 38px);
+  line-height: 1.3;
+  letter-spacing: -0.3px;
   white-space: pre-line;
+}
+.affirmation h1.quote::before { content: '\201C'; opacity: 0.45; margin-right: 2px; }
+.affirmation h1.quote::after  { content: '\201D'; opacity: 0.45; margin-left: 2px; }
+.attribution {
+  margin-top: 18px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--ink-soft);
+}
+.attribution .work {
+  color: var(--ink-faint);
+  font-style: italic;
+}
+.card-attr {
+  margin-top: 6px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--ink-soft);
 }
 .dots {
   margin-top: 36px;
@@ -509,10 +531,14 @@ textarea.journal:focus { border-color: var(--ink); }
   font-family: 'Playfair Display', Georgia, serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(28px, 8vw, 36px);
-  line-height: 1.3;
-  white-space: pre-line;
+  font-size: clamp(24px, 7vw, 32px);
+  line-height: 1.35;
   color: var(--ink);
+}
+.detail-hero h1.quote::before { content: '\201C'; opacity: 0.45; margin-right: 2px; }
+.detail-hero h1.quote::after  { content: '\201D'; opacity: 0.45; margin-left: 2px; }
+.detail-hero .attribution {
+  margin-top: 16px;
 }
 .bubbles {
   display: flex;

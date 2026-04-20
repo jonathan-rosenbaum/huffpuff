@@ -1,5 +1,5 @@
 import { store, todayKey } from '../storage.js';
-import { byId, personalize } from '../affirmations.js';
+import { byId } from '../affirmations.js';
 import { toast } from '../app.js';
 
 const PROMPTS = [
@@ -31,7 +31,10 @@ export function renderReflect() {
       <span class="brand">Reflect</span>
       <span class="streak">${new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
     </header>
-    <div class="reflect-hero">${escapeHtml(personalize(aff.text, profile.name))}</div>
+    <div class="reflect-hero">
+      <div class="quote">${escapeHtml(aff.text)}</div>
+      ${aff.source && aff.source.author ? `<div class="attribution">\u2014 ${escapeHtml(aff.source.author)}</div>` : ''}
+    </div>
     <div class="reflect-prompt">${escapeHtml(prompt)}</div>
     <textarea class="journal" id="journal" placeholder="write freely\u2026">${escapeHtml(existing ? existing.text : '')}</textarea>
     <div class="actions" style="margin-top:16px;">

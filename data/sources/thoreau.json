@@ -1,0 +1,35 @@
+{
+  "source": {
+    "author": "Henry David Thoreau",
+    "work": "Walden, Journals & Essays",
+    "era": "1845–1862",
+    "translator": null
+  },
+  "entries": [
+    { "id": "thor-001", "text": "Go confidently in the direction of your dreams. Live the life you have imagined.", "focus": ["confidence", "growth"], "ref": "Walden" },
+    { "id": "thor-002", "text": "I went to the woods because I wished to live deliberately.", "focus": ["growth", "calm"], "ref": "Walden" },
+    { "id": "thor-003", "text": "It is not what you look at that matters, it is what you see.", "focus": ["growth", "calm"], "ref": "Journals" },
+    { "id": "thor-004", "text": "Our life is frittered away by detail. Simplify, simplify.", "focus": ["rest", "calm"], "ref": "Walden" },
+    { "id": "thor-005", "text": "The mass of men lead lives of quiet desperation.", "focus": ["growth"], "ref": "Walden" },
+    { "id": "thor-006", "text": "The price of anything is the amount of life you exchange for it.", "focus": ["rest", "growth"], "ref": "Walden" },
+    { "id": "thor-007", "text": "That man is the richest whose pleasures are the cheapest.", "focus": ["rest", "worth"], "ref": "Journal, March 11, 1856" },
+    { "id": "thor-008", "text": "Not till we are lost, in other words, not till we have lost the world, do we begin to find ourselves.", "focus": ["growth", "rest"], "ref": "Walden" },
+    { "id": "thor-009", "text": "Live each season as it passes; breathe the air, drink the drink, taste the fruit, and resign yourself to the influences of each.", "focus": ["rest", "calm"], "ref": "Journal, August 23, 1853" },
+    { "id": "thor-010", "text": "If a man does not keep pace with his companions, perhaps it is because he hears a different drummer.", "focus": ["confidence", "worth"], "ref": "Walden" },
+    { "id": "thor-011", "text": "As a single footstep will not make a path on the earth, so a single thought will not make a pathway in the mind.", "focus": ["growth"], "ref": "attributed" },
+    { "id": "thor-012", "text": "To affect the quality of the day, that is the highest of arts.", "focus": ["rest", "growth"], "ref": "Walden" },
+    { "id": "thor-013", "text": "The sun is but a morning star.", "focus": ["rest", "growth"], "ref": "Walden" },
+    { "id": "thor-014", "text": "Every morning was a cheerful invitation to make my life of equal simplicity, and I may say innocence, with Nature herself.", "focus": ["rest", "calm"], "ref": "Walden" },
+    { "id": "thor-015", "text": "I have learned this, at least, by my experiment: that if one advances confidently in the direction of his dreams, he will meet with a success unexpected in common hours.", "focus": ["confidence", "growth"], "ref": "Walden" },
+    { "id": "thor-016", "text": "Things do not change; we change.", "focus": ["growth"], "ref": "Walden" },
+    { "id": "thor-017", "text": "Rather than love, than money, than fame, give me truth.", "focus": ["growth"], "ref": "Walden" },
+    { "id": "thor-018", "text": "Time is but the stream I go a-fishing in.", "focus": ["rest"], "ref": "Walden" },
+    { "id": "thor-019", "text": "What's the use of a fine house if you haven't got a tolerable planet to put it on?", "focus": ["rest"], "ref": "attributed" },
+    { "id": "thor-020", "text": "I had three chairs in my house; one for solitude, two for friendship, three for society.", "focus": ["rest", "love"], "ref": "Walden" },
+    { "id": "thor-021", "text": "The question is not what you look at, but what you see.", "focus": ["growth"], "ref": "Journal" },
+    { "id": "thor-022", "text": "There is no remedy for love but to love more.", "focus": ["love"], "ref": "Journal, July 25, 1839" },
+    { "id": "thor-023", "text": "How vain it is to sit down to write when you have not stood up to live.", "focus": ["growth"], "ref": "Journal, August 19, 1851" },
+    { "id": "thor-024", "text": "I have never found a companion that was so companionable as solitude.", "focus": ["rest", "calm"], "ref": "Walden" },
+    { "id": "thor-025", "text": "Heaven is under our feet as well as over our heads.", "focus": ["calm", "worth"], "ref": "Walden" }
+  ]
+}

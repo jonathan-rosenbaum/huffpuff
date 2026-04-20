@@ -1,5 +1,5 @@
 import { store, todayKey } from '../storage.js';
-import { pickForDate, pickRandom, byId, personalize } from '../affirmations.js';
+import { pickForDate, pickRandom, byId } from '../affirmations.js';
 import { navigate, toast } from '../app.js';
 
 export function renderToday() {
@@ -14,16 +14,30 @@ export function renderToday() {
   let daily = store.daily;
   if (!daily || daily.date !== today) {
     const aff = pickForDate(today, profile.focus, profile.name, store.history);
+    if (!aff) {
+      el.innerHTML = `<div class="empty">Loading\u2026</div>`;
+      return el;
+    }
     daily = { date: today, affirmationId: aff.id };
     store.daily = daily;
 
-    // Track recent history to avoid repeats (keep last 14).
     const h = store.history;
     h.push(aff.id);
     while (h.length > 14) h.shift();
     store.history = h;
   }
   const aff = byId(daily.affirmationId);
+  if (!aff) {
+    // Library may still be loading, or daily points to a removed id — re-pick.
+    const fresh = pickForDate(today, profile.focus, profile.name);
+    if (!fresh) {
+      el.innerHTML = `<div class="empty">Loading\u2026</div>`;
+      return el;
+    }
+    store.daily = { date: today, affirmationId: fresh.id };
+    el.replaceWith(renderToday());
+    return el;
+  }
 
   const savedIds = new Set(store.saved.map(s => s.id));
   const isSaved = savedIds.has(aff.id);
@@ -32,6 +46,8 @@ export function renderToday() {
     weekday: 'long', month: 'long', day: 'numeric'
   });
 
+  const author = aff.source && aff.source.author ? aff.source.author : '';
+
   el.innerHTML = `
     <header class="header">
       <span class="brand">${escapeHtml(profile.name || 'She')} Is</span>
@@ -39,7 +55,8 @@ export function renderToday() {
     </header>
     <div class="date">${dateLabel}</div>
     <div class="affirmation">
-      <h1 id="aff" class="tappable">${escapeHtml(personalize(aff.text, profile.name))}</h1>
+      <h1 id="aff" class="tappable quote">${escapeHtml(aff.text)}</h1>
+      ${author ? `<div class="attribution">\u2014 ${escapeHtml(author)}</div>` : ''}
       <div class="dots">\u2022 \u2022 \u2022</div>
       <div class="sub-cta">tap to read more</div>
     </div>
@@ -61,13 +78,12 @@ export function renderToday() {
       store.saved = saved;
       toast('saved to collection');
     }
-    // Re-render to update icon
     el.replaceWith(renderToday());
   });
 
   el.querySelector('#next').addEventListener('click', () => {
     const another = pickRandom(profile.focus, profile.name, [aff.id, ...store.history]);
-    // Override today's pick with this one
+    if (!another) return;
     store.daily = { date: today, affirmationId: another.id };
     const h = store.history;
     h.push(another.id);

@@ -1,0 +1,22 @@
+{
+  "source": {
+    "author": "Walt Whitman",
+    "work": "Leaves of Grass",
+    "era": "1855–1892",
+    "translator": null
+  },
+  "entries": [
+    { "id": "whit-001", "text": "I exist as I am, that is enough.", "focus": ["worth"], "ref": "Song of Myself, 20" },
+    { "id": "whit-002", "text": "Keep your face always toward the sunshine, and shadows will fall behind you.", "focus": ["confidence", "calm"], "ref": "attributed" },
+    { "id": "whit-003", "text": "Re-examine all you have been told. Dismiss what insults your soul.", "focus": ["confidence", "growth"], "ref": "Leaves of Grass, Preface" },
+    { "id": "whit-004", "text": "I celebrate myself, and sing myself.", "focus": ["worth", "confidence"], "ref": "Song of Myself, 1" },
+    { "id": "whit-005", "text": "Now I see the secret of making the best person: it is to grow in the open air, and to eat and sleep with the earth.", "focus": ["rest", "growth"], "ref": "Song of the Open Road" },
+    { "id": "whit-006", "text": "Do I contradict myself? Very well, then I contradict myself; I am large, I contain multitudes.", "focus": ["worth", "confidence"], "ref": "Song of Myself, 51" },
+    { "id": "whit-007", "text": "To me every hour of the light and dark is a miracle.", "focus": ["rest", "love"], "ref": "Miracles" },
+    { "id": "whit-008", "text": "Be curious, not judgmental.", "focus": ["growth", "love"], "ref": "attributed" },
+    { "id": "whit-009", "text": "Every moment of light and dark is a miracle.", "focus": ["rest"], "ref": "Miracles" },
+    { "id": "whit-010", "text": "Afoot and light-hearted I take to the open road, healthy, free, the world before me.", "focus": ["confidence", "rest"], "ref": "Song of the Open Road" },
+    { "id": "whit-011", "text": "Happiness, not in another place but this place, not for another hour, but this hour.", "focus": ["rest", "calm"], "ref": "Leaves of Grass" },
+    { "id": "whit-012", "text": "Henceforth I ask not good-fortune, I myself am good-fortune.", "focus": ["confidence", "worth"], "ref": "Song of the Open Road" }
+  ]
+}

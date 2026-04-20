@@ -1,0 +1,25 @@
+{
+  "source": {
+    "author": "Hafiz of Shiraz",
+    "work": "Divan of Hafiz",
+    "era": "14th century",
+    "translator": "Gertrude Bell, 1897 (public domain)"
+  },
+  "entries": [
+    { "id": "haf-001", "text": "I wish I could show you, when you are lonely or in darkness, the astonishing light of your own being.", "focus": ["worth", "love"], "ref": "attributed" },
+    { "id": "haf-002", "text": "Even after all this time, the sun never says to the earth, \"You owe me.\" Look what happens with a love like that. It lights the whole sky.", "focus": ["love"], "ref": "attributed" },
+    { "id": "haf-003", "text": "Fear is the cheapest room in the house. I would like to see you living in better conditions.", "focus": ["confidence", "growth"], "ref": "attributed" },
+    { "id": "haf-004", "text": "The words you speak become the house you live in.", "focus": ["growth"], "ref": "attributed" },
+    { "id": "haf-005", "text": "Your heart and my heart are very, very old friends.", "focus": ["love"], "ref": "attributed" },
+    { "id": "haf-006", "text": "Stay close to anything that makes you glad you are alive.", "focus": ["love", "rest"], "ref": "attributed" },
+    { "id": "haf-007", "text": "I caught the happy virus last night when I was out singing beneath the stars. It is remarkably contagious.", "focus": ["love", "rest"], "ref": "attributed" },
+    { "id": "haf-008", "text": "A poet is someone who can pour light into a cup, then raise it to nourish your beautiful parched, holy mouth.", "focus": ["love", "growth"], "ref": "attributed" },
+    { "id": "haf-009", "text": "Don't surrender your loneliness so quickly. Let it cut more deep. Let it ferment and season you as few human or even divine ingredients can.", "focus": ["rest", "growth"], "ref": "attributed" },
+    { "id": "haf-010", "text": "We have not come here to take prisoners, but to surrender ever more deeply to freedom and joy.", "focus": ["rest", "love"], "ref": "attributed" },
+    { "id": "haf-011", "text": "The heart is a thousand-stringed instrument that can only be tuned with Love.", "focus": ["love"], "ref": "attributed" },
+    { "id": "haf-012", "text": "All this time the sun never says to the earth, you owe me.", "focus": ["love"], "ref": "attributed" },
+    { "id": "haf-013", "text": "I am a hole in a flute that the Christ's breath moves through — listen to this music.", "focus": ["worth", "calm"], "ref": "attributed" },
+    { "id": "haf-014", "text": "Ever since happiness heard your name, it has been running through the streets trying to find you.", "focus": ["love", "rest"], "ref": "attributed" },
+    { "id": "haf-015", "text": "How did the rose ever open its heart and give to this world all its beauty? It felt the encouragement of light against its being.", "focus": ["love", "growth"], "ref": "attributed" }
+  ]
+}

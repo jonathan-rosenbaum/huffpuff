@@ -1,0 +1,25 @@
+{
+  "source": {
+    "author": "Vedic seers (traditional)",
+    "work": "Upanishads",
+    "era": "c. 800–500 BCE",
+    "translator": "F. Max Müller, 1879 & Swāmi Nikhilānanda (public domain portions)"
+  },
+  "entries": [
+    { "id": "upa-001", "text": "You are what your deep, driving desire is. As your desire is, so is your will. As your will is, so is your deed. As your deed is, so is your destiny.", "focus": ["growth", "worth"], "ref": "Brihadaranyaka Upanishad IV.4.5" },
+    { "id": "upa-002", "text": "That art thou.", "focus": ["worth"], "long": "\"Tat tvam asi.\" You are That — the deepest reality beneath everything is already who you are.", "ref": "Chandogya Upanishad VI.8.7" },
+    { "id": "upa-003", "text": "From the unreal lead me to the real. From darkness lead me to light. From death lead me to immortality.", "focus": ["growth", "rest"], "ref": "Brihadaranyaka Upanishad I.3.28" },
+    { "id": "upa-004", "text": "The Self is not to be known through study, nor through sharp intellect, nor through much hearing of sacred texts.", "focus": ["calm", "growth"], "ref": "Katha Upanishad I.2.23" },
+    { "id": "upa-005", "text": "When all the desires that dwell in the heart fall away, then the mortal becomes immortal.", "focus": ["rest", "growth"], "ref": "Brihadaranyaka Upanishad IV.4.7" },
+    { "id": "upa-006", "text": "Arise, awake, and stop not till the goal is reached.", "focus": ["confidence", "growth"], "ref": "Katha Upanishad I.3.14" },
+    { "id": "upa-007", "text": "As a man acts, so does he become. A man of good deeds becomes good, a man of bad deeds, bad.", "focus": ["growth"], "ref": "Brihadaranyaka Upanishad IV.4.5" },
+    { "id": "upa-008", "text": "He who knows the Self puts away all sorrow.", "focus": ["rest", "worth"], "ref": "Chandogya Upanishad VII.1.3" },
+    { "id": "upa-009", "text": "The Self is hidden in the hearts of all, as butter lies hidden in cream.", "focus": ["worth", "calm"], "ref": "Shvetashvatara Upanishad I.16" },
+    { "id": "upa-010", "text": "Let your aim be one and single. Let your heart be one, unified, whole.", "focus": ["confidence", "growth"], "ref": "paraphrase, Shvetashvatara" },
+    { "id": "upa-011", "text": "As the rivers flowing east and west merge in the sea and become one with it, so do all beings merge into the Self.", "focus": ["rest", "love"], "ref": "Prashna Upanishad VI.5" },
+    { "id": "upa-012", "text": "Where there is duality, one sees another, hears another, knows another. Where everything is the Self, what could one see, hear, or know?", "focus": ["calm", "growth"], "ref": "Brihadaranyaka Upanishad IV.5.15" },
+    { "id": "upa-013", "text": "The knower of the Self overcomes grief.", "focus": ["rest"], "ref": "Chandogya Upanishad VII.1.3" },
+    { "id": "upa-014", "text": "The body is the bow, OM the arrow, and the Self the target. Hit the mark with intent undistracted.", "focus": ["growth", "calm"], "ref": "Mundaka Upanishad II.2.4" },
+    { "id": "upa-015", "text": "Like two birds on the same tree: one eats the sweet fruit, the other watches without eating. So the Self and the soul sit side by side.", "focus": ["calm", "growth"], "ref": "Mundaka Upanishad III.1.1" }
+  ]
+}

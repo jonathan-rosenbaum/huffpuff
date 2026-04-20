@@ -1,0 +1,30 @@
+{
+  "source": {
+    "author": "Rainer Maria Rilke",
+    "work": "Letters to a Young Poet & Book of Hours",
+    "era": "1903–1908",
+    "translator": "M.D. Herter Norton & early PD translations (public domain in US pre-1929 editions)"
+  },
+  "entries": [
+    { "id": "ril-001", "text": "Be patient toward all that is unsolved in your heart and try to love the questions themselves.", "focus": ["rest", "growth"], "ref": "Letters to a Young Poet, Letter 4" },
+    { "id": "ril-002", "text": "Live the questions now. Perhaps then, someday far in the future, you will gradually, without even noticing it, live your way into the answer.", "focus": ["rest", "growth"], "ref": "Letters to a Young Poet" },
+    { "id": "ril-003", "text": "The only journey is the one within.", "focus": ["growth", "calm"], "ref": "attributed" },
+    { "id": "ril-004", "text": "Let life happen to you. Believe me: life is in the right, always.", "focus": ["rest", "growth"], "ref": "Letters" },
+    { "id": "ril-005", "text": "Perhaps all the dragons in our lives are princesses who are only waiting to see us act, just once, with beauty and courage.", "focus": ["confidence", "growth"], "ref": "Letters to a Young Poet" },
+    { "id": "ril-006", "text": "The future enters into us, in order to transform itself in us, long before it happens.", "focus": ["growth", "rest"], "ref": "Letters" },
+    { "id": "ril-007", "text": "You must give birth to your images. They are the future waiting to be born.", "focus": ["growth", "confidence"], "ref": "attributed" },
+    { "id": "ril-008", "text": "I hold this to be the highest task of a bond between two people: that each protects the solitude of the other.", "focus": ["love", "rest"], "ref": "Letters to a Young Poet, Letter 7" },
+    { "id": "ril-009", "text": "The point of marriage is not to create a quick commonality by tearing down all boundaries; on the contrary, a good marriage is one in which each partner appoints the other to be the guardian of his solitude.", "focus": ["love"], "ref": "Letters to a Young Poet" },
+    { "id": "ril-010", "text": "We need, in love, to practice only this: letting each other go. For holding on comes easily.", "focus": ["love", "rest"], "ref": "attributed" },
+    { "id": "ril-011", "text": "No feeling is final.", "focus": ["rest"], "ref": "Book of Hours" },
+    { "id": "ril-012", "text": "Let everything happen to you: beauty and terror. Just keep going. No feeling is final.", "focus": ["rest", "growth"], "ref": "Book of Hours" },
+    { "id": "ril-013", "text": "Flare up like a flame and make big shadows I can move in.", "focus": ["confidence"], "ref": "Book of Hours" },
+    { "id": "ril-014", "text": "God speaks to each of us as he makes us, then walks with us silently out of the night.", "focus": ["love", "rest"], "ref": "Book of Hours" },
+    { "id": "ril-015", "text": "Being an artist means: not numbering and counting, but ripening like the tree.", "focus": ["rest", "growth"], "ref": "Letters to a Young Poet" },
+    { "id": "ril-016", "text": "Everything is gestation and then bringing forth.", "focus": ["growth"], "ref": "Letters to a Young Poet" },
+    { "id": "ril-017", "text": "If your daily life seems poor, do not blame it; blame yourself that you are not poet enough to call forth its riches.", "focus": ["rest", "growth"], "ref": "Letters to a Young Poet, Letter 1" },
+    { "id": "ril-018", "text": "For beauty is nothing but the beginning of terror, which we are still just able to endure.", "focus": ["growth"], "ref": "Duino Elegies" },
+    { "id": "ril-019", "text": "I am learning to see. I don't know why, everything penetrates me more deeply.", "focus": ["growth", "calm"], "ref": "Notebooks of Malte Laurids Brigge" },
+    { "id": "ril-020", "text": "Perhaps all the dragons of our lives are princesses who are only waiting to see us once beautiful and brave.", "focus": ["confidence", "growth"], "ref": "Letters to a Young Poet" }
+  ]
+}

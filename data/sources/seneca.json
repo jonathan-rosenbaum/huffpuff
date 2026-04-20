@@ -1,0 +1,35 @@
+{
+  "source": {
+    "author": "Lucius Annaeus Seneca",
+    "work": "Letters from a Stoic & On the Shortness of Life",
+    "era": "c. 65 CE",
+    "translator": "Richard M. Gummere, 1917 (public domain)"
+  },
+  "entries": [
+    { "id": "sen-001", "text": "We suffer more often in imagination than in reality.", "focus": ["calm"], "ref": "Letters 13.4" },
+    { "id": "sen-002", "text": "It is not that we have a short time to live, but that we waste a lot of it.", "focus": ["rest", "growth"], "ref": "On the Shortness of Life" },
+    { "id": "sen-003", "text": "Luck is what happens when preparation meets opportunity.", "focus": ["confidence"], "ref": "attributed" },
+    { "id": "sen-004", "text": "Every new beginning comes from some other beginning's end.", "focus": ["growth", "rest"], "ref": "attributed" },
+    { "id": "sen-005", "text": "If one does not know to which port one is sailing, no wind is favorable.", "focus": ["growth", "confidence"], "ref": "Letters 71.3" },
+    { "id": "sen-006", "text": "As long as you live, keep learning how to live.", "focus": ["growth"], "ref": "Letters 76.3" },
+    { "id": "sen-007", "text": "Difficulties strengthen the mind, as labor does the body.", "focus": ["confidence", "growth"], "ref": "attributed" },
+    { "id": "sen-008", "text": "The greatest remedy for anger is delay.", "focus": ["calm"], "ref": "On Anger II.29" },
+    { "id": "sen-009", "text": "Life is long enough, and has been given in sufficiently generous measure, if you should decide to invest all of it wisely.", "focus": ["rest", "growth"], "ref": "On the Shortness of Life" },
+    { "id": "sen-010", "text": "You learn to know a pilot in a storm.", "focus": ["confidence", "growth"], "ref": "Letters 85.34" },
+    { "id": "sen-011", "text": "Every night before going to sleep, we must ask ourselves: what weakness have I overcome today? What virtue have I acquired?", "focus": ["growth"], "ref": "On Anger III.36" },
+    { "id": "sen-012", "text": "No great thing is created suddenly.", "focus": ["growth", "rest"], "ref": "attributed" },
+    { "id": "sen-013", "text": "Religion is regarded by the common people as true, by the wise as false, and by rulers as useful.", "focus": ["growth"], "ref": "attributed" },
+    { "id": "sen-014", "text": "He who is brave is free.", "focus": ["confidence"], "ref": "Letters" },
+    { "id": "sen-015", "text": "Begin at once to live, and count each separate day as a separate life.", "focus": ["rest", "growth"], "ref": "Letters 101.10" },
+    { "id": "sen-016", "text": "Sometimes even to live is an act of courage.", "focus": ["confidence"], "ref": "Letters 78" },
+    { "id": "sen-017", "text": "Those who have been great, lived a life of dignity and purpose. It is not length of life, but depth of life.", "focus": ["worth", "growth"], "ref": "attributed" },
+    { "id": "sen-018", "text": "The whole future lies in uncertainty: live immediately.", "focus": ["rest", "growth"], "ref": "Letters 101" },
+    { "id": "sen-019", "text": "Wherever there is a human being, there is an opportunity for kindness.", "focus": ["love"], "ref": "attributed" },
+    { "id": "sen-020", "text": "A gem cannot be polished without friction, nor a man perfected without trials.", "focus": ["growth", "confidence"], "ref": "attributed" },
+    { "id": "sen-021", "text": "Only time can heal what reason cannot.", "focus": ["rest"], "ref": "Letters 63" },
+    { "id": "sen-022", "text": "All cruelty springs from weakness.", "focus": ["love", "calm"], "ref": "Letters" },
+    { "id": "sen-023", "text": "True happiness is to enjoy the present, without anxious dependence upon the future.", "focus": ["rest", "calm"], "ref": "Letters 15" },
+    { "id": "sen-024", "text": "Associate with people who are likely to improve you.", "focus": ["growth", "love"], "ref": "Letters 7" },
+    { "id": "sen-025", "text": "The bravest sight in the world is to see a great man struggling against adversity.", "focus": ["confidence", "growth"], "ref": "attributed" }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "source": {
+    "author": "Rabindranath Tagore",
+    "work": "Gitanjali & Stray Birds",
+    "era": "1910–1916",
+    "translator": "Tagore's own English renderings (public domain)"
+  },
+  "entries": [
+    { "id": "tag-001", "text": "You can't cross the sea merely by standing and staring at the water.", "focus": ["confidence", "growth"], "ref": "Stray Birds" },
+    { "id": "tag-002", "text": "Let your life lightly dance on the edges of Time like dew on the tip of a leaf.", "focus": ["rest", "calm"], "ref": "Stray Birds" },
+    { "id": "tag-003", "text": "The butterfly counts not months but moments, and has time enough.", "focus": ["rest"], "ref": "Stray Birds" },
+    { "id": "tag-004", "text": "Faith is the bird that feels the light when the dawn is still dark.", "focus": ["confidence", "rest"], "ref": "Stray Birds" },
+    { "id": "tag-005", "text": "Clouds come floating into my life, no longer to carry rain or usher storm, but to add color to my sunset sky.", "focus": ["rest", "love"], "ref": "Stray Birds" },
+    { "id": "tag-006", "text": "The highest education is that which does not merely give us information but makes our life in harmony with all existence.", "focus": ["growth", "love"], "ref": "attributed" },
+    { "id": "tag-007", "text": "Do not say, \"It is morning,\" and dismiss it with a name of yesterday. See it for the first time as a newborn child that has no name.", "focus": ["rest", "calm"], "ref": "Stray Birds" },
+    { "id": "tag-008", "text": "You smiled and talked to me of nothing and I felt that for this I had been waiting long.", "focus": ["love"], "ref": "Stray Birds" },
+    { "id": "tag-009", "text": "The water in a vessel is sparkling; the water in the sea is dark. The small truth has words which are clear; the great truth has great silence.", "focus": ["calm", "growth"], "ref": "Stray Birds" },
+    { "id": "tag-010", "text": "Everything comes to us that belongs to us if we create the capacity to receive it.", "focus": ["worth", "growth"], "ref": "attributed" },
+    { "id": "tag-011", "text": "I slept and dreamt that life was joy. I awoke and saw that life was service. I acted and behold, service was joy.", "focus": ["love", "growth"], "ref": "attributed" },
+    { "id": "tag-012", "text": "Let me not pray to be sheltered from dangers but to be fearless in facing them.", "focus": ["confidence", "growth"], "ref": "attributed" },
+    { "id": "tag-013", "text": "Where the mind is without fear and the head is held high — into that heaven of freedom, let my country awake.", "focus": ["confidence", "growth"], "ref": "Gitanjali 35" },
+    { "id": "tag-014", "text": "The roots below the earth claim no rewards for making the branches fruitful.", "focus": ["rest", "love"], "ref": "Stray Birds" },
+    { "id": "tag-015", "text": "He who has hope has everything.", "focus": ["rest"], "ref": "attributed" },
+    { "id": "tag-016", "text": "The stars are not afraid to appear like fireflies.", "focus": ["confidence", "worth"], "ref": "Stray Birds" },
+    { "id": "tag-017", "text": "When we rejoice in our fullness, then we can part with our fruits with joy.", "focus": ["rest", "love"], "ref": "Fruit-Gathering" },
+    { "id": "tag-018", "text": "Age considers; youth ventures.", "focus": ["growth", "confidence"], "ref": "attributed" },
+    { "id": "tag-019", "text": "Trees are the earth's endless effort to speak to the listening heaven.", "focus": ["calm", "growth"], "ref": "Fireflies" },
+    { "id": "tag-020", "text": "In love all of life's contradictions dissolve and disappear.", "focus": ["love"], "ref": "attributed" }
+  ]
+}

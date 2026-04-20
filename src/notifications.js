@@ -4,7 +4,7 @@
 // a push server — out of scope for the free/offline MVP.
 
 import { store } from './storage.js';
-import { AFFIRMATIONS, personalize, pickForDate } from './affirmations.js';
+import { pickForDate } from './affirmations.js';
 import { todayKey } from './storage.js';
 
 let timers = [];
@@ -49,11 +49,13 @@ export function reschedule() {
 function fire() {
   const profile = store.profile;
   const aff = pickForDate(todayKey(), profile.focus, profile.name);
-  const text = personalize(aff.text, profile.name).replace(/\n/g, ' ');
-  const title = profile.name ? `${profile.name} is…` : 'She is…';
+  if (!aff) return;
+  const author = aff.source && aff.source.author ? aff.source.author : '';
+  const title = profile.name ? `A thought for ${profile.name}` : 'A thought for you';
+  const body = author ? `${aff.text}\n\u2014 ${author}` : aff.text;
   try {
     new Notification(title, {
-      body: text,
+      body,
       icon: '/icons/icon-192.png',
       badge: '/icons/icon-192.png',
       tag: 'sabrina-daily',

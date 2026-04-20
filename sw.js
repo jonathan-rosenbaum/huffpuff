@@ -1,5 +1,5 @@
 // Minimal service worker — cache-first for app shell, network fallback.
-const VERSION = 'sabrina-v2';
+const VERSION = 'sabrina-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -18,6 +18,27 @@ const ASSETS = [
   './src/screens/settings.js',
   './src/screens/detail.js',
   './src/screens/lock.js',
+  './data/index.json',
+  './data/sources/marcus-aurelius.json',
+  './data/sources/tao-te-ching.json',
+  './data/sources/dhammapada.json',
+  './data/sources/bhagavad-gita.json',
+  './data/sources/epictetus.json',
+  './data/sources/seneca.json',
+  './data/sources/confucius.json',
+  './data/sources/bible.json',
+  './data/sources/rumi.json',
+  './data/sources/hafiz.json',
+  './data/sources/rilke.json',
+  './data/sources/emerson.json',
+  './data/sources/thoreau.json',
+  './data/sources/whitman.json',
+  './data/sources/tagore.json',
+  './data/sources/gibran.json',
+  './data/sources/upanishads.json',
+  './data/sources/havamal.json',
+  './data/sources/proverbs.json',
+  './data/sources/modern.json',
 ];
 
 self.addEventListener('install', (e) => {

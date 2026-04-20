@@ -1,0 +1,24 @@
+{
+  "files": [
+    "marcus-aurelius.json",
+    "tao-te-ching.json",
+    "dhammapada.json",
+    "bhagavad-gita.json",
+    "epictetus.json",
+    "seneca.json",
+    "confucius.json",
+    "bible.json",
+    "rumi.json",
+    "hafiz.json",
+    "rilke.json",
+    "emerson.json",
+    "thoreau.json",
+    "whitman.json",
+    "tagore.json",
+    "gibran.json",
+    "upanishads.json",
+    "havamal.json",
+    "proverbs.json",
+    "modern.json"
+  ]
+}

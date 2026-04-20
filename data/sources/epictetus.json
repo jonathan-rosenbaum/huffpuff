@@ -1,0 +1,40 @@
+{
+  "source": {
+    "author": "Epictetus",
+    "work": "Enchiridion & Discourses",
+    "era": "c. 125 CE",
+    "translator": "George Long & Thomas Wentworth Higginson (19th c., public domain)"
+  },
+  "entries": [
+    { "id": "epi-001", "text": "It is not what happens to you, but how you react to it that matters.", "focus": ["calm", "confidence"], "ref": "Enchiridion 5" },
+    { "id": "epi-002", "text": "We have two ears and one mouth so that we can listen twice as much as we speak.", "focus": ["calm", "growth"], "ref": "attributed" },
+    { "id": "epi-003", "text": "No man is free who is not master of himself.", "focus": ["confidence", "growth"], "ref": "Discourses IV.1" },
+    { "id": "epi-004", "text": "First say to yourself what you would be; then do what you have to do.", "focus": ["confidence", "growth"], "ref": "Discourses III.23" },
+    { "id": "epi-005", "text": "Wealth consists not in having great possessions, but in having few wants.", "focus": ["rest", "worth"], "ref": "attributed" },
+    { "id": "epi-006", "text": "Only the educated are free.", "focus": ["growth"], "ref": "Discourses II.1" },
+    { "id": "epi-007", "text": "Seek not the good in external things; seek it in yourselves.", "focus": ["worth", "calm"], "ref": "Discourses II.16" },
+    { "id": "epi-008", "text": "He is a wise man who does not grieve for the things which he has not, but rejoices for those which he has.", "focus": ["rest", "worth"], "ref": "Discourses" },
+    { "id": "epi-009", "text": "If you wish to be a writer, write.", "focus": ["confidence", "growth"], "ref": "Discourses III.23" },
+    { "id": "epi-010", "text": "Circumstances don't make the man; they only reveal him to himself.", "focus": ["confidence", "growth"], "ref": "attributed" },
+    { "id": "epi-011", "text": "Don't explain your philosophy. Embody it.", "focus": ["confidence"], "ref": "attributed" },
+    { "id": "epi-012", "text": "Make the best use of what is in your power, and take the rest as it happens.", "focus": ["rest", "calm"], "ref": "Enchiridion 8" },
+    { "id": "epi-013", "text": "Some things are within our power, while others are not.", "focus": ["calm", "rest"], "long": "Within our power are opinion, pursuit, desire, aversion — whatever is our own doing. Not within our power are body, property, reputation, command — whatever is not our own doing. (Enchiridion 1)", "ref": "Enchiridion 1" },
+    { "id": "epi-014", "text": "It's not what happens to you, but how you react to it that matters.", "focus": ["calm", "confidence"], "ref": "Enchiridion 5" },
+    { "id": "epi-015", "text": "Don't seek to have events happen as you wish, but wish them to happen as they do happen, and your life will go well.", "focus": ["rest", "calm"], "ref": "Enchiridion 8" },
+    { "id": "epi-016", "text": "Preach not to others what they should eat, but eat as becomes you and be silent.", "focus": ["calm", "growth"], "ref": "Enchiridion 46" },
+    { "id": "epi-017", "text": "Keep silent for the most part, and if you must speak, speak concisely.", "focus": ["calm"], "ref": "Enchiridion 33" },
+    { "id": "epi-018", "text": "If you want to improve, be content to be thought foolish and stupid.", "focus": ["growth", "confidence"], "ref": "Enchiridion 13" },
+    { "id": "epi-019", "text": "Men are disturbed not by the things which happen, but by the opinions about the things.", "focus": ["calm", "growth"], "ref": "Enchiridion 5" },
+    { "id": "epi-020", "text": "Any person capable of angering you becomes your master.", "focus": ["calm", "confidence"], "ref": "Discourses" },
+    { "id": "epi-021", "text": "Do not seek for things to happen the way you want them to; rather, wish that what happens happen the way it happens: then you will be happy.", "focus": ["rest", "calm"], "ref": "Enchiridion 8" },
+    { "id": "epi-022", "text": "Freedom is the only worthy goal in life. It is won by disregarding things that lie beyond our control.", "focus": ["rest", "confidence"], "ref": "Discourses" },
+    { "id": "epi-023", "text": "There is only one way to happiness and that is to cease worrying about things which are beyond the power of our will.", "focus": ["rest", "calm"], "ref": "Discourses" },
+    { "id": "epi-024", "text": "People are not disturbed by things, but by the views which they take of them.", "focus": ["calm"], "ref": "Enchiridion 5" },
+    { "id": "epi-025", "text": "Do not wish that all things will go well with you, but that you will go well with all things.", "focus": ["calm", "rest"], "ref": "Enchiridion 8" },
+    { "id": "epi-026", "text": "He who laughs at himself never runs out of things to laugh at.", "focus": ["rest", "growth"], "ref": "attributed" },
+    { "id": "epi-027", "text": "You become what you give your attention to.", "focus": ["growth", "calm"], "ref": "Discourses" },
+    { "id": "epi-028", "text": "Nature hath given men one tongue but two ears, that we may hear from others twice as much as we speak.", "focus": ["growth", "calm"], "ref": "attributed" },
+    { "id": "epi-029", "text": "If your choices are beautiful, so too will you be.", "focus": ["growth", "worth"], "ref": "Discourses" },
+    { "id": "epi-030", "text": "No man is free who is not master of himself. A man should so live that his happiness shall depend as little as possible on external things.", "focus": ["confidence", "rest"], "ref": "Discourses IV.1" }
+  ]
+}

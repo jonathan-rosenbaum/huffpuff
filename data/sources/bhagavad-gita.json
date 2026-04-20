@@ -1,0 +1,40 @@
+{
+  "source": {
+    "author": "Krishna (traditional attribution)",
+    "work": "Bhagavad Gita",
+    "era": "c. 2nd century BCE",
+    "translator": "Sir Edwin Arnold, 1885 (public domain)"
+  },
+  "entries": [
+    { "id": "gita-001", "text": "You have the right to work, but never to the fruit of work.", "focus": ["rest", "growth"], "ref": "2.47" },
+    { "id": "gita-002", "text": "Set thy heart upon thy work, but never on its reward.", "focus": ["rest", "calm"], "ref": "2.47" },
+    { "id": "gita-003", "text": "There is neither this world, nor the world beyond, nor happiness for the one who doubts.", "focus": ["confidence"], "ref": "4.40" },
+    { "id": "gita-004", "text": "The soul is neither born, and nor does it die.", "focus": ["calm", "rest"], "ref": "2.20" },
+    { "id": "gita-005", "text": "A gift is pure when it is given from the heart to the right person at the right time, and when we expect nothing in return.", "focus": ["love"], "ref": "17.20" },
+    { "id": "gita-006", "text": "Whatever happened, happened for the good. Whatever is happening, is happening for the good. Whatever will happen, will also happen for the good.", "focus": ["rest", "growth"], "ref": "attributed paraphrase" },
+    { "id": "gita-007", "text": "The mind is restless, Arjuna; it is turbulent, strong, and stubborn. Yet it can be trained, through practice and dispassion.", "focus": ["calm", "growth"], "ref": "6.34–35" },
+    { "id": "gita-008", "text": "When meditation is mastered, the mind is unwavering like the flame of a lamp in a windless place.", "focus": ["calm", "rest"], "ref": "6.19" },
+    { "id": "gita-009", "text": "Perform your obligatory duty, because action is indeed better than inaction.", "focus": ["growth", "confidence"], "ref": "3.8" },
+    { "id": "gita-010", "text": "It is better to strive in one's own dharma than to succeed in the dharma of another.", "focus": ["worth", "confidence"], "ref": "3.35" },
+    { "id": "gita-011", "text": "One who has control over the mind is tranquil in heat and cold, in pleasure and pain, and in honor and dishonor.", "focus": ["calm"], "ref": "6.7" },
+    { "id": "gita-012", "text": "Pleasure from the senses seems like nectar at first, but it is bitter as poison in the end.", "focus": ["growth"], "ref": "18.38" },
+    { "id": "gita-013", "text": "Reshape yourself through the power of your will.", "focus": ["confidence", "growth"], "ref": "6.5" },
+    { "id": "gita-014", "text": "Those who have conquered themselves live in peace, alike in cold and heat, pleasure and pain, praise and blame.", "focus": ["calm", "confidence"], "ref": "6.7" },
+    { "id": "gita-015", "text": "A person is said to have achieved yoga when his desire for sense gratification does not enter the mind.", "focus": ["rest", "calm"], "ref": "6.18" },
+    { "id": "gita-016", "text": "No one who does good work will ever come to a bad end, either here or in the world to come.", "focus": ["growth", "rest"], "ref": "6.40" },
+    { "id": "gita-017", "text": "Whatever happened was good, what's happening is going well, whatever will happen, shall also be good.", "focus": ["rest", "calm"], "ref": "attributed paraphrase" },
+    { "id": "gita-018", "text": "The wise unify their consciousness and abandon attachment to the fruits of action.", "focus": ["rest", "calm"], "ref": "2.51" },
+    { "id": "gita-019", "text": "Let not the fruits of action be your motive.", "focus": ["rest"], "ref": "2.47" },
+    { "id": "gita-020", "text": "For one who has conquered the mind, the mind is the best of friends; but for one who has failed to do so, the mind remains the greatest enemy.", "focus": ["calm", "growth"], "ref": "6.6" },
+    { "id": "gita-021", "text": "Man is made by his belief. As he believes, so he is.", "focus": ["confidence", "growth"], "ref": "17.3" },
+    { "id": "gita-022", "text": "Whatever you do, make it an offering to me — the food you eat, the sacrifices you make, the help you give.", "focus": ["love", "growth"], "ref": "9.27" },
+    { "id": "gita-023", "text": "Delusion arises from anger. The mind is bewildered by delusion. Reasoning is destroyed when the mind is bewildered.", "focus": ["calm"], "ref": "2.63" },
+    { "id": "gita-024", "text": "Seek refuge in the attitude of detachment and you will amass the wealth of spiritual awareness.", "focus": ["rest", "growth"], "ref": "2.49" },
+    { "id": "gita-025", "text": "Perform every action sacredly. Be free from all attachments to the results.", "focus": ["rest", "calm"], "ref": "3.30" },
+    { "id": "gita-026", "text": "Your own self-realization is the greatest service you can render the world.", "focus": ["worth", "growth"], "ref": "attributed paraphrase" },
+    { "id": "gita-027", "text": "Calmness, gentleness, silence, self-restraint, and purity: these are the disciplines of the mind.", "focus": ["calm", "growth"], "ref": "17.16" },
+    { "id": "gita-028", "text": "There is more happiness in doing one's own path without excellence than in doing another's path well.", "focus": ["worth", "confidence"], "ref": "3.35" },
+    { "id": "gita-029", "text": "As the heat of a fire reduces wood to ashes, the fire of knowledge burns to ashes all karma.", "focus": ["growth"], "ref": "4.37" },
+    { "id": "gita-030", "text": "The senses are higher than the body; the mind is higher than the senses; above the mind is the intellect; and above the intellect is the Self.", "focus": ["growth"], "ref": "3.42" }
+  ]
+}

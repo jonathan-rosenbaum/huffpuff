@@ -1,0 +1,35 @@
+{
+  "source": {
+    "author": "Various modern voices",
+    "work": "Short quotes from 20th–21st century writers, thinkers, and leaders (fair-use, attributed)",
+    "era": "20th–21st century",
+    "translator": null
+  },
+  "entries": [
+    { "id": "mod-001", "text": "I am not what happened to me. I am what I choose to become.", "focus": ["confidence", "growth"], "ref": "Carl Jung" },
+    { "id": "mod-002", "text": "Until you make the unconscious conscious, it will direct your life and you will call it fate.", "focus": ["growth"], "ref": "Carl Jung" },
+    { "id": "mod-003", "text": "The privilege of a lifetime is to become who you truly are.", "focus": ["worth", "growth"], "ref": "Carl Jung" },
+    { "id": "mod-004", "text": "Between stimulus and response there is a space. In that space is our power to choose our response.", "focus": ["calm", "confidence"], "ref": "Viktor Frankl" },
+    { "id": "mod-005", "text": "When we are no longer able to change a situation, we are challenged to change ourselves.", "focus": ["growth", "rest"], "ref": "Viktor Frankl" },
+    { "id": "mod-006", "text": "Those who have a 'why' to live, can bear with almost any 'how.'", "focus": ["growth", "confidence"], "ref": "Viktor Frankl (paraphrasing Nietzsche)" },
+    { "id": "mod-007", "text": "No one can make you feel inferior without your consent.", "focus": ["confidence", "worth"], "ref": "Eleanor Roosevelt" },
+    { "id": "mod-008", "text": "You gain strength, courage, and confidence by every experience in which you really stop to look fear in the face.", "focus": ["confidence", "growth"], "ref": "Eleanor Roosevelt, You Learn by Living" },
+    { "id": "mod-009", "text": "The future belongs to those who believe in the beauty of their dreams.", "focus": ["confidence"], "ref": "Eleanor Roosevelt" },
+    { "id": "mod-010", "text": "A woman is like a tea bag — you can't tell how strong she is until you put her in hot water.", "focus": ["confidence"], "ref": "Eleanor Roosevelt" },
+    { "id": "mod-011", "text": "I am the master of my fate, I am the captain of my soul.", "focus": ["confidence"], "ref": "W.E. Henley, Invictus" },
+    { "id": "mod-012", "text": "In the depth of winter, I finally learned that within me there lay an invincible summer.", "focus": ["confidence", "rest"], "ref": "Albert Camus" },
+    { "id": "mod-013", "text": "Caring for myself is not self-indulgence, it is self-preservation, and that is an act of political warfare.", "focus": ["rest", "worth"], "ref": "Audre Lorde" },
+    { "id": "mod-014", "text": "Love is an action, never simply a feeling.", "focus": ["love"], "ref": "bell hooks, All About Love" },
+    { "id": "mod-015", "text": "To be loved is to be seen. And to see someone is to love them.", "focus": ["love"], "ref": "paraphrase, bell hooks" },
+    { "id": "mod-016", "text": "There is no greater agony than bearing an untold story inside you.", "focus": ["confidence", "growth"], "ref": "Maya Angelou" },
+    { "id": "mod-017", "text": "Do the best you can until you know better. Then when you know better, do better.", "focus": ["growth"], "ref": "Maya Angelou" },
+    { "id": "mod-018", "text": "You are braver than you believe, stronger than you seem, and smarter than you think.", "focus": ["confidence", "worth"], "ref": "often attributed to A.A. Milne (Christopher Robin sentiment)" },
+    { "id": "mod-019", "text": "You do not have to be good. You do not have to walk on your knees for a hundred miles through the desert, repenting.", "focus": ["worth", "rest"], "ref": "Mary Oliver, Wild Geese (fair-use excerpt)" },
+    { "id": "mod-020", "text": "Tell me, what is it you plan to do with your one wild and precious life?", "focus": ["growth", "confidence"], "ref": "Mary Oliver, The Summer Day" },
+    { "id": "mod-021", "text": "Not everything that is faced can be changed, but nothing can be changed until it is faced.", "focus": ["confidence", "growth"], "ref": "James Baldwin" },
+    { "id": "mod-022", "text": "The most common way people give up their power is by thinking they don't have any.", "focus": ["confidence", "worth"], "ref": "Alice Walker" },
+    { "id": "mod-023", "text": "People will forget what you said, people will forget what you did, but people will never forget how you made them feel.", "focus": ["love"], "ref": "Maya Angelou" },
+    { "id": "mod-024", "text": "We delight in the beauty of the butterfly, but rarely admit the changes it has gone through to achieve that beauty.", "focus": ["growth", "rest"], "ref": "Maya Angelou" },
+    { "id": "mod-025", "text": "Vulnerability is not winning or losing; it's having the courage to show up when you can't control the outcome.", "focus": ["confidence", "love"], "ref": "Brené Brown, Rising Strong" }
+  ]
+}

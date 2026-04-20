@@ -1,0 +1,35 @@
+{
+  "source": {
+    "author": "Ralph Waldo Emerson",
+    "work": "Essays & Journals",
+    "era": "1836–1882",
+    "translator": null
+  },
+  "entries": [
+    { "id": "eme-001", "text": "Nothing can bring you peace but yourself.", "focus": ["calm", "worth"], "ref": "Self-Reliance" },
+    { "id": "eme-002", "text": "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.", "focus": ["confidence", "worth"], "ref": "attributed" },
+    { "id": "eme-003", "text": "What lies behind us and what lies before us are tiny matters compared to what lies within us.", "focus": ["worth", "confidence"], "ref": "attributed" },
+    { "id": "eme-004", "text": "Finish each day and be done with it. You have done what you could.", "focus": ["rest"], "ref": "Letters and Social Aims" },
+    { "id": "eme-005", "text": "Write it on your heart that every day is the best day in the year.", "focus": ["rest", "growth"], "ref": "Society and Solitude" },
+    { "id": "eme-006", "text": "Do not go where the path may lead, go instead where there is no path and leave a trail.", "focus": ["confidence", "growth"], "ref": "attributed" },
+    { "id": "eme-007", "text": "For every minute you are angry you lose sixty seconds of happiness.", "focus": ["calm"], "ref": "attributed" },
+    { "id": "eme-008", "text": "A hero is no braver than an ordinary man, but he is brave five minutes longer.", "focus": ["confidence"], "ref": "Society and Solitude" },
+    { "id": "eme-009", "text": "The only person you are destined to become is the person you decide to be.", "focus": ["confidence", "growth"], "ref": "attributed" },
+    { "id": "eme-010", "text": "Trust thyself: every heart vibrates to that iron string.", "focus": ["confidence", "worth"], "ref": "Self-Reliance" },
+    { "id": "eme-011", "text": "Whatever course you decide upon, there is always someone to tell you that you are wrong.", "focus": ["confidence"], "ref": "Journals" },
+    { "id": "eme-012", "text": "What you do speaks so loudly that I cannot hear what you say.", "focus": ["growth"], "ref": "attributed" },
+    { "id": "eme-013", "text": "The creation of a thousand forests is in one acorn.", "focus": ["growth"], "ref": "attributed" },
+    { "id": "eme-014", "text": "Once you make a decision, the universe conspires to make it happen.", "focus": ["confidence"], "ref": "attributed" },
+    { "id": "eme-015", "text": "The earth laughs in flowers.", "focus": ["love", "rest"], "ref": "Hamatreya" },
+    { "id": "eme-016", "text": "Without ambition one starts nothing. Without work one finishes nothing.", "focus": ["growth"], "ref": "Journals" },
+    { "id": "eme-017", "text": "The only way to have a friend is to be one.", "focus": ["love"], "ref": "Friendship" },
+    { "id": "eme-018", "text": "Make your own Bible. Select and collect all the words and sentences that have been of use to you in any crisis.", "focus": ["growth"], "ref": "Journals" },
+    { "id": "eme-019", "text": "Adopt the pace of nature: her secret is patience.", "focus": ["rest", "calm"], "ref": "attributed" },
+    { "id": "eme-020", "text": "The invariable mark of wisdom is to see the miraculous in the common.", "focus": ["calm", "growth"], "ref": "Nature" },
+    { "id": "eme-021", "text": "Our greatest glory is not in never failing, but in rising every time we fail.", "focus": ["confidence", "growth"], "ref": "attributed" },
+    { "id": "eme-022", "text": "Nothing great was ever achieved without enthusiasm.", "focus": ["confidence", "growth"], "ref": "Essays, Circles" },
+    { "id": "eme-023", "text": "Insist on yourself; never imitate.", "focus": ["worth", "confidence"], "ref": "Self-Reliance" },
+    { "id": "eme-024", "text": "When you were born, you cried and the world rejoiced. Live your life so that when you die, the world cries and you rejoice.", "focus": ["growth"], "ref": "attributed" },
+    { "id": "eme-025", "text": "Shallow men believe in luck. Strong men believe in cause and effect.", "focus": ["confidence", "growth"], "ref": "Conduct of Life" }
+  ]
+}

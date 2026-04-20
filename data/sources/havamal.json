@@ -1,0 +1,25 @@
+{
+  "source": {
+    "author": "Anonymous (Old Norse wisdom poem, attributed to Odin)",
+    "work": "Hávamál (The Sayings of the High One)",
+    "era": "c. 10th century (compiled 13th century)",
+    "translator": "Henry Adams Bellows, 1923 (public domain)"
+  },
+  "entries": [
+    { "id": "hav-001", "text": "A guest should depart before he becomes a burden, and the fire should be put out before it burns the house.", "focus": ["growth", "calm"], "ref": "st. 35 (paraphrase)" },
+    { "id": "hav-002", "text": "Cattle die, kinsmen die, you yourself must die. But one thing never dies: the reputation we leave behind.", "focus": ["growth", "worth"], "ref": "st. 76–77" },
+    { "id": "hav-003", "text": "No man is so good that he has no faults, nor so wicked that he is worth naught.", "focus": ["love", "worth"], "ref": "st. 133 (paraphrase)" },
+    { "id": "hav-004", "text": "Praise no day until evening, no wife until buried, no sword until tested, no ice until crossed, no ale until drunk.", "focus": ["calm", "growth"], "ref": "st. 81" },
+    { "id": "hav-005", "text": "A middling wise man, that's the best: who knows enough to know he doesn't know all.", "focus": ["calm", "growth"], "ref": "st. 54 (paraphrase)" },
+    { "id": "hav-006", "text": "Be not a prideful guest in another's house; silent you sit, or choose words with care.", "focus": ["calm", "growth"], "ref": "st. 7 (paraphrase)" },
+    { "id": "hav-007", "text": "He who stands at a strange door should be cautious before crossing it.", "focus": ["growth", "calm"], "ref": "st. 1" },
+    { "id": "hav-008", "text": "A man's home is his castle, no matter how small.", "focus": ["rest", "worth"], "ref": "st. 36 (paraphrase)" },
+    { "id": "hav-009", "text": "Better gear than good sense a traveler cannot carry.", "focus": ["growth"], "ref": "st. 10" },
+    { "id": "hav-010", "text": "Better a live dog than a dead lion.", "focus": ["rest", "growth"], "ref": "st. 70 (paraphrase)" },
+    { "id": "hav-011", "text": "He who observes well and is cautious will seldom come to harm.", "focus": ["calm", "growth"], "ref": "st. 6 (paraphrase)" },
+    { "id": "hav-012", "text": "A path unwalked is hard to learn; a cup undrunk is hard to know.", "focus": ["growth"], "ref": "paraphrase" },
+    { "id": "hav-013", "text": "Friends should share joys and show loyalty; gifts given in friendship make friendships last.", "focus": ["love"], "ref": "st. 41–42 (paraphrase)" },
+    { "id": "hav-014", "text": "Never trust the words of a sick man's promises, nor the calm of a frozen lake.", "focus": ["calm", "growth"], "ref": "st. 85 (paraphrase)" },
+    { "id": "hav-015", "text": "Moderate and wise every man should be, and not with knowledge too keen; of those men whose lives are well lived, the hearts are seldom glad if their wisdom is overlarge.", "focus": ["calm", "growth"], "ref": "st. 55" }
+  ]
+}

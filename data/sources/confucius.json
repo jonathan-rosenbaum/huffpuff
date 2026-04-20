@@ -1,0 +1,35 @@
+{
+  "source": {
+    "author": "Confucius",
+    "work": "Analects",
+    "era": "c. 500 BCE",
+    "translator": "James Legge, 1861 (public domain)"
+  },
+  "entries": [
+    { "id": "con-001", "text": "It does not matter how slowly you go as long as you do not stop.", "focus": ["growth", "rest"], "ref": "attributed" },
+    { "id": "con-002", "text": "The man who moves a mountain begins by carrying away small stones.", "focus": ["growth", "confidence"], "ref": "attributed" },
+    { "id": "con-003", "text": "Everything has beauty, but not everyone sees it.", "focus": ["love", "calm"], "ref": "attributed" },
+    { "id": "con-004", "text": "When anger rises, think of the consequences.", "focus": ["calm"], "ref": "Analects XVI.10" },
+    { "id": "con-005", "text": "Real knowledge is to know the extent of one's ignorance.", "focus": ["growth"], "ref": "Analects II.17" },
+    { "id": "con-006", "text": "Our greatest glory is not in never falling, but in rising every time we fall.", "focus": ["confidence", "growth"], "ref": "attributed" },
+    { "id": "con-007", "text": "The gem cannot be polished without friction, nor man perfected without trials.", "focus": ["growth", "confidence"], "ref": "attributed" },
+    { "id": "con-008", "text": "Study the past if you would define the future.", "focus": ["growth"], "ref": "attributed" },
+    { "id": "con-009", "text": "The superior man is modest in his speech, but exceeds in his actions.", "focus": ["confidence", "growth"], "ref": "Analects XIV.27" },
+    { "id": "con-010", "text": "By three methods we may learn wisdom: First, by reflection, which is noblest; second, by imitation, which is easiest; and third, by experience, which is the bitterest.", "focus": ["growth"], "ref": "attributed" },
+    { "id": "con-011", "text": "Wherever you go, go with all your heart.", "focus": ["love", "confidence"], "ref": "attributed" },
+    { "id": "con-012", "text": "Before you embark on a journey of revenge, dig two graves.", "focus": ["calm"], "ref": "attributed" },
+    { "id": "con-013", "text": "Respect yourself and others will respect you.", "focus": ["worth", "confidence"], "ref": "attributed" },
+    { "id": "con-014", "text": "Choose a job you love, and you will never have to work a day in your life.", "focus": ["love", "growth"], "ref": "attributed" },
+    { "id": "con-015", "text": "To be wronged is nothing unless you continue to remember it.", "focus": ["calm", "rest"], "ref": "attributed" },
+    { "id": "con-016", "text": "At fifteen, I had my mind bent on learning. At thirty, I stood firm. At forty, I had no doubts. At fifty, I knew the decrees of Heaven.", "focus": ["growth"], "ref": "Analects II.4" },
+    { "id": "con-017", "text": "He who learns but does not think, is lost. He who thinks but does not learn is in great danger.", "focus": ["growth"], "ref": "Analects II.15" },
+    { "id": "con-018", "text": "Have no friends not equal to yourself.", "focus": ["love", "confidence"], "ref": "Analects I.8" },
+    { "id": "con-019", "text": "When you know a thing, to hold that you know it; and when you do not know a thing, to allow that you do not know it — this is knowledge.", "focus": ["growth"], "ref": "Analects II.17" },
+    { "id": "con-020", "text": "The firm, the enduring, the simple, and the modest are near to virtue.", "focus": ["growth", "calm"], "ref": "Analects XIII.27" },
+    { "id": "con-021", "text": "To see what is right and not do it is want of courage.", "focus": ["confidence"], "ref": "Analects II.24" },
+    { "id": "con-022", "text": "The will to win, the desire to succeed, the urge to reach your full potential — these are the keys that will unlock the door to personal excellence.", "focus": ["confidence", "growth"], "ref": "attributed" },
+    { "id": "con-023", "text": "Do not do to others what you do not want done to yourself.", "focus": ["love", "growth"], "ref": "Analects XV.23" },
+    { "id": "con-024", "text": "The superior man thinks always of virtue; the common man thinks of comfort.", "focus": ["growth"], "ref": "Analects IV.11" },
+    { "id": "con-025", "text": "Virtue is not left to stand alone. He who practices it will have neighbors.", "focus": ["love", "growth"], "ref": "Analects IV.25" }
+  ]
+}

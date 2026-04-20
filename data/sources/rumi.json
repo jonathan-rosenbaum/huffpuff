@@ -1,0 +1,35 @@
+{
+  "source": {
+    "author": "Jalāl al-Dīn Rūmī",
+    "work": "Masnavi, Divan-e Shams-e Tabrizi",
+    "era": "13th century",
+    "translator": "Reynold A. Nicholson & E.H. Whinfield (early 20th c., public domain)"
+  },
+  "entries": [
+    { "id": "rum-001", "text": "The wound is the place where the Light enters you.", "focus": ["growth", "love"], "ref": "attributed" },
+    { "id": "rum-002", "text": "Set your life on fire. Seek those who fan your flames.", "focus": ["confidence", "love"], "ref": "attributed" },
+    { "id": "rum-003", "text": "Out beyond ideas of wrongdoing and rightdoing, there is a field. I'll meet you there.", "focus": ["love", "calm"], "ref": "attributed" },
+    { "id": "rum-004", "text": "You are not a drop in the ocean. You are the entire ocean, in a drop.", "focus": ["worth"], "ref": "attributed" },
+    { "id": "rum-005", "text": "What you seek is seeking you.", "focus": ["love", "growth"], "ref": "attributed" },
+    { "id": "rum-006", "text": "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.", "focus": ["growth"], "ref": "attributed" },
+    { "id": "rum-007", "text": "Don't grieve. Anything you lose comes round in another form.", "focus": ["rest", "growth"], "ref": "attributed" },
+    { "id": "rum-008", "text": "The quieter you become, the more you are able to hear.", "focus": ["calm"], "ref": "attributed" },
+    { "id": "rum-009", "text": "Your task is not to seek for love, but merely to seek and find all the barriers within yourself that you have built against it.", "focus": ["love", "growth"], "ref": "attributed" },
+    { "id": "rum-010", "text": "The cure for pain is in the pain.", "focus": ["growth"], "ref": "Masnavi" },
+    { "id": "rum-011", "text": "When you do things from your soul, you feel a river moving in you, a joy.", "focus": ["rest", "love"], "ref": "attributed" },
+    { "id": "rum-012", "text": "Let yourself be silently drawn by the strange pull of what you really love. It will not lead you astray.", "focus": ["love", "growth"], "ref": "attributed" },
+    { "id": "rum-013", "text": "Raise your words, not voice. It is rain that grows flowers, not thunder.", "focus": ["calm", "love"], "ref": "attributed" },
+    { "id": "rum-014", "text": "You were born with wings. Why prefer to crawl through life?", "focus": ["confidence", "growth"], "ref": "attributed" },
+    { "id": "rum-015", "text": "This being human is a guest house. Every morning a new arrival: a joy, a depression, a meanness. Welcome and entertain them all.", "focus": ["rest", "growth"], "ref": "The Guest House" },
+    { "id": "rum-016", "text": "Be melting snow. Wash yourself of yourself.", "focus": ["growth", "rest"], "ref": "attributed" },
+    { "id": "rum-017", "text": "Stop acting so small. You are the universe in ecstatic motion.", "focus": ["worth", "confidence"], "ref": "attributed" },
+    { "id": "rum-018", "text": "Try not to resist the changes that come your way. Instead, let life live through you.", "focus": ["rest", "growth"], "ref": "attributed" },
+    { "id": "rum-019", "text": "Wherever you are, and whatever you do, be in love.", "focus": ["love"], "ref": "attributed" },
+    { "id": "rum-020", "text": "The universe is not outside of you. Look inside yourself; everything that you want, you are already that.", "focus": ["worth", "calm"], "ref": "attributed" },
+    { "id": "rum-021", "text": "Goodbyes are only for those who love with their eyes. For those who love with heart and soul there is no such thing as separation.", "focus": ["love"], "ref": "attributed" },
+    { "id": "rum-022", "text": "Everyone sees the unseen in proportion to the clarity of his heart.", "focus": ["growth", "love"], "ref": "Masnavi" },
+    { "id": "rum-023", "text": "Ignore those that make you fearful and sad, that degrade you back towards disease and death.", "focus": ["confidence", "calm"], "ref": "attributed" },
+    { "id": "rum-024", "text": "Where there is ruin, there is hope for a treasure.", "focus": ["growth", "rest"], "ref": "Masnavi" },
+    { "id": "rum-025", "text": "Silence is the language of God. All else is poor translation.", "focus": ["calm", "rest"], "ref": "attributed" }
+  ]
+}

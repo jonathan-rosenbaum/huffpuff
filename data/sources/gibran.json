@@ -1,0 +1,35 @@
+{
+  "source": {
+    "author": "Kahlil Gibran",
+    "work": "The Prophet & Sand and Foam",
+    "era": "1923–1926",
+    "translator": null
+  },
+  "entries": [
+    { "id": "gib-001", "text": "Out of suffering have emerged the strongest souls; the most massive characters are seared with scars.", "focus": ["confidence", "growth"], "ref": "attributed" },
+    { "id": "gib-002", "text": "Your pain is the breaking of the shell that encloses your understanding.", "focus": ["growth"], "ref": "The Prophet, On Pain" },
+    { "id": "gib-003", "text": "Work is love made visible.", "focus": ["love", "growth"], "ref": "The Prophet, On Work" },
+    { "id": "gib-004", "text": "Your children are not your children. They are the sons and daughters of Life's longing for itself.", "focus": ["love", "rest"], "ref": "The Prophet, On Children" },
+    { "id": "gib-005", "text": "You may give them your love but not your thoughts, for they have their own thoughts.", "focus": ["love"], "ref": "The Prophet, On Children" },
+    { "id": "gib-006", "text": "The deeper that sorrow carves into your being, the more joy you can contain.", "focus": ["rest", "growth"], "ref": "The Prophet, On Joy and Sorrow" },
+    { "id": "gib-007", "text": "When you love you should not say, \"God is in my heart,\" but rather, \"I am in the heart of God.\"", "focus": ["love"], "ref": "The Prophet, On Love" },
+    { "id": "gib-008", "text": "Love has no other desire but to fulfill itself.", "focus": ["love"], "ref": "The Prophet, On Love" },
+    { "id": "gib-009", "text": "Love one another, but make not a bond of love: let it rather be a moving sea between the shores of your souls.", "focus": ["love"], "ref": "The Prophet, On Marriage" },
+    { "id": "gib-010", "text": "Give your hearts, but not into each other's keeping. For only the hand of Life can contain your hearts.", "focus": ["love"], "ref": "The Prophet, On Marriage" },
+    { "id": "gib-011", "text": "Stand together, yet not too near together: for the pillars of the temple stand apart, and the oak tree and the cypress grow not in each other's shadow.", "focus": ["love", "rest"], "ref": "The Prophet, On Marriage" },
+    { "id": "gib-012", "text": "The teacher who is indeed wise does not bid you to enter the house of his wisdom but rather leads you to the threshold of your own mind.", "focus": ["growth"], "ref": "The Prophet, On Teaching" },
+    { "id": "gib-013", "text": "No man can reveal to you aught but that which already lies half asleep in the dawning of your knowledge.", "focus": ["growth"], "ref": "The Prophet, On Teaching" },
+    { "id": "gib-014", "text": "Say not, \"I have found the truth,\" but rather, \"I have found a truth.\"", "focus": ["growth"], "ref": "The Prophet, On Self-Knowledge" },
+    { "id": "gib-015", "text": "Your soul is oftentimes a battlefield, upon which your reason and your judgment wage war against your passion and your appetite.", "focus": ["growth", "calm"], "ref": "The Prophet, On Reason and Passion" },
+    { "id": "gib-016", "text": "Rest in reason and move in passion.", "focus": ["rest", "growth"], "ref": "The Prophet, On Reason and Passion" },
+    { "id": "gib-017", "text": "Trust in dreams, for in them is hidden the gate to eternity.", "focus": ["rest", "growth"], "ref": "Sand and Foam" },
+    { "id": "gib-018", "text": "Beauty is eternity gazing at itself in a mirror.", "focus": ["love", "worth"], "ref": "The Prophet, On Beauty" },
+    { "id": "gib-019", "text": "You are the bows from which your children as living arrows are sent forth.", "focus": ["love"], "ref": "The Prophet, On Children" },
+    { "id": "gib-020", "text": "The reality of the other person is not in what he reveals to you, but in what he cannot reveal to you.", "focus": ["love", "growth"], "ref": "Sand and Foam" },
+    { "id": "gib-021", "text": "Forget not that the earth delights to feel your bare feet and the winds long to play with your hair.", "focus": ["rest", "love"], "ref": "The Prophet, On Clothes" },
+    { "id": "gib-022", "text": "Silence is sometimes the best answer.", "focus": ["calm"], "ref": "attributed" },
+    { "id": "gib-023", "text": "If you love somebody, let them go, for if they return, they were always yours.", "focus": ["love", "rest"], "ref": "attributed" },
+    { "id": "gib-024", "text": "The lust for comfort murders the passion of the soul.", "focus": ["growth", "confidence"], "ref": "The Prophet, On Houses" },
+    { "id": "gib-025", "text": "You are good when you are one with yourself.", "focus": ["worth", "calm"], "ref": "The Prophet, On Good and Evil" }
+  ]
+}
